@@ -10,10 +10,12 @@ find_package(OpenCV REQUIRED PATHS "C:/OpenCV/build/install")
 
 include_directories(${OpenCV_INCLUDE_DIR})
 
+add_subdirectory(${PROJECT_SOURCE_DIR}/libs/cli11)
+
 # Add source to this project's executable.
 add_executable (CMakeProject1test "CMakeProject1test.cpp" "CMakeProject1test.h")
 
-target_link_libraries(CMakeProject1test ${OpenCV_LIBS})
+target_link_libraries(CMakeProject1test ${OpenCV_LIBS} CLI11::CLI11)
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET CMakeProject1test PROPERTY CXX_STANDARD 20)

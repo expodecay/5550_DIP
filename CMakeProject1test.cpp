@@ -10,14 +10,23 @@
 #include "opencv2/imgcodecs.hpp"
 #include "opencv2/highgui.hpp"
 
+#include <CLI/CLI.hpp>
+
 
 using namespace std;
 
-int main()
+int main(int argc, char* argv[])
 {
+	CLI::App app{"CMakeProject1test"};
+
+	string image_path = "H:/My Drive/CPP/CS_5550_Digital_Image_Processing/Assignment_1/lena.png";
+
+	app.add_option("-i,--image", image_path, "location of input image");
+	CLI11_PARSE(app, argc, argv) // commandline extraction
+
 	cv::Mat full_img, new_image, half_image;
-	string file_location = "H:/My Drive/CPP/CS_5550_Digital_Image_Processing/Assignment_1/lena.png";
-	full_img = cv::imread(cv::samples::findFile(file_location), cv::IMREAD_GRAYSCALE);
+	//string file_location = "H:/My Drive/CPP/CS_5550_Digital_Image_Processing/Assignment_1/lena.png";
+	full_img = cv::imread(cv::samples::findFile(image_path), cv::IMREAD_GRAYSCALE);
 
 	const int n_Channel = 1;
 	const int n_Dimensions = 2;
@@ -53,7 +62,7 @@ int main()
 	int halfSize[n_Dimensions] = { full_img.rows/2, full_img.cols/2 };
 	half_image = cv::Mat::zeros(n_Dimensions, halfSize, CV_8U);
 
-	//decimation
+	//decimation - taking every other line
 	for (int i = 0; i < height; i+=2)
 	{
 		for (int j = 0; j < width; j+=2) 
