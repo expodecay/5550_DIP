@@ -79,6 +79,8 @@ int main(int argc, char* argv[])
 		for (int j = 0; j < width; j += 16)
 		{
 			upscale_image.at<uint8_t>(i, j) = one_sixteenth_image.at<uint8_t>(i/16, j/16);
+			linear_image.at<uint8_t>(i, j) = one_sixteenth_image.at<uint8_t>(i / 16, j / 16);
+			bilinear_image.at<uint8_t>(i, j) = one_sixteenth_image.at<uint8_t>(i / 16, j / 16);
 		}
 	}
 
@@ -93,30 +95,8 @@ int main(int argc, char* argv[])
 
 		}
 	}
-	// linear upscale copy
-	for (int i = 0; i < height; i++)
-	{
-		for (int j = 0; j < width; j++)
-		{
-			uint8_t val = myData[i * _stride + j];
-
-			linear_image.at<uint8_t>(i, j) = one_sixteenth_image.at<uint8_t>(i / 16, j / 16);
-
-		}
-	}
-	// bilinear neighbor upscale copy
-	for (int i = 0; i < height; i++)
-	{
-		for (int j = 0; j < width; j++)
-		{
-			uint8_t val = myData[i * _stride + j];
-
-			//bilinear_image.at<uint8_t>(i, j) = one_sixteenth_image.at<uint8_t>(i / 16, j / 16);
-
-		}
-	}
 	
-	//linear upscale
+	// Bilinear upscale
 	for (int i = 0; i < height; i++) {
 		for (int j = 0; j < width - 16; j += 16) {
 			int x1 = upscale_image.at<uint8_t>(i, j);
@@ -126,7 +106,7 @@ int main(int argc, char* argv[])
 
 			for (int k = 1; k < 16; k++) {
 
-				upscale_image.at<uint8_t>(i, j + k) = slope * k + Yint;
+				bilinear_image.at<uint8_t>(i, j + k) = slope * k + Yint;
 
 				//upscale_image.at<uint8_t>(i, j + k) = (upscale_image.at<uint8_t>(i, j) + upscale_image.at<uint8_t>(i, j + 16)) / 2;
 
@@ -135,10 +115,11 @@ int main(int argc, char* argv[])
 			}
 		}
 	}
+
 	for (int i = 0; i < height; i++) {
 		for (int j = 0; j < width - 16; j += 16) {
-			int y1 = upscale_image.at<uint8_t>(j, i);
-			int y2 = upscale_image.at<uint8_t>(j + 16, i);
+			int y1 = bilinear_image.at<uint8_t>(j, i);
+			int y2 = bilinear_image.at<uint8_t>(j + 16, i);
 			int slope = (y2 - y1) / 16;
 			int Yint = y1;
 
@@ -146,15 +127,17 @@ int main(int argc, char* argv[])
 				//upscale_image.at<uint8_t>(i, j + k) = (upscale_image.at<uint8_t>(i, j) + upscale_image.at<uint8_t>(i, j + 16)) / 2;
 				//upscale_image.at<uint8_t>(j + k, i) = (upscale_image.at<uint8_t>(j, i) + upscale_image.at<uint8_t>(j + 16, i)) / 2;
 
-				upscale_image.at<uint8_t>(j + k, i) = slope * k + Yint;
+				bilinear_image.at<uint8_t>(j + k, i) = slope * k + Yint;
 			}
 		}
 	}
 
+
 	cv::imshow("Full Image", full_img);
 	cv::imshow("Copy Image", new_image);
 	cv::imshow("Half Image", one_sixteenth_image);
-	cv::imshow("Upscale Image", upscale_image);
+	cv::imshow("nearest_neighbor Image", nearest_neighbor_image);
+	cv::imshow("bilinear Image", bilinear_image);
 	cv::waitKey(0);
 	return 0;
 }
