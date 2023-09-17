@@ -119,17 +119,34 @@ int main(int argc, char* argv[])
 	//linear upscale
 	for (int i = 0; i < height; i++) {
 		for (int j = 0; j < width - 16; j += 16) {
+			int x1 = upscale_image.at<uint8_t>(i, j);
+			int x2 = upscale_image.at<uint8_t>(i, j + 16);
+			int slope = (x2 - x1)/ 16;
+			int Yint = x1;
+
 			for (int k = 1; k < 16; k++) {
-				upscale_image.at<uint8_t>(i, j + k) = (upscale_image.at<uint8_t>(i, j) + upscale_image.at<uint8_t>(i, j + 16)) / 2;
+
+				upscale_image.at<uint8_t>(i, j + k) = slope * k + Yint;
+
+				//upscale_image.at<uint8_t>(i, j + k) = (upscale_image.at<uint8_t>(i, j) + upscale_image.at<uint8_t>(i, j + 16)) / 2;
+
+
 				//upscale_image.at<uint8_t>(j + k, i) = (upscale_image.at<uint8_t>(j, i) + upscale_image.at<uint8_t>(j + 16, i)) / 2;
 			}
 		}
 	}
 	for (int i = 0; i < height; i++) {
 		for (int j = 0; j < width - 16; j += 16) {
+			int y1 = upscale_image.at<uint8_t>(j, i);
+			int y2 = upscale_image.at<uint8_t>(j + 16, i);
+			int slope = (y2 - y1) / 16;
+			int Yint = y1;
+
 			for (int k = 1; k < 16; k++) {
 				//upscale_image.at<uint8_t>(i, j + k) = (upscale_image.at<uint8_t>(i, j) + upscale_image.at<uint8_t>(i, j + 16)) / 2;
-				upscale_image.at<uint8_t>(j + k, i) = (upscale_image.at<uint8_t>(j, i) + upscale_image.at<uint8_t>(j + 16, i)) / 2;
+				//upscale_image.at<uint8_t>(j + k, i) = (upscale_image.at<uint8_t>(j, i) + upscale_image.at<uint8_t>(j + 16, i)) / 2;
+
+				upscale_image.at<uint8_t>(j + k, i) = slope * k + Yint;
 			}
 		}
 	}
