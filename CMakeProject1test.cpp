@@ -95,6 +95,37 @@ int main(int argc, char* argv[])
 
 		}
 	}
+
+	// Linear upscale
+	for (int i = 0; i < height; i++) {
+		for (int j = 0; j < width - 16; j += 16) {
+			int x1 = upscale_image.at<uint8_t>(i, j);
+			int x2 = upscale_image.at<uint8_t>(i, j + 16);
+			int slope = (x2 - x1) / 16;
+			int Yint = x1;
+
+			for (int k = 1; k < 16; k++) {
+
+				linear_image.at<uint8_t>(i, j + k) = slope * k + Yint;
+
+				//upscale_image.at<uint8_t>(i, j + k) = (upscale_image.at<uint8_t>(i, j) + upscale_image.at<uint8_t>(i, j + 16)) / 2;
+
+
+				//upscale_image.at<uint8_t>(j + k, i) = (upscale_image.at<uint8_t>(j, i) + upscale_image.at<uint8_t>(j + 16, i)) / 2;
+			}
+		}
+	}
+	for (int i = 0; i < height; i++) {
+		for (int j = 0; j < width - 16; j += 16) {
+
+			for (int k = 1; k < 16; k++) {
+				//upscale_image.at<uint8_t>(i, j + k) = (upscale_image.at<uint8_t>(i, j) + upscale_image.at<uint8_t>(i, j + 16)) / 2;
+				//upscale_image.at<uint8_t>(j + k, i) = (upscale_image.at<uint8_t>(j, i) + upscale_image.at<uint8_t>(j + 16, i)) / 2;
+
+				linear_image.at<uint8_t>(j + k, i) = linear_image.at<uint8_t>(j + k - 1, i);
+			}
+		}
+	}
 	
 	// Bilinear upscale
 	for (int i = 0; i < height; i++) {
@@ -137,7 +168,8 @@ int main(int argc, char* argv[])
 	cv::imshow("Copy Image", new_image);
 	cv::imshow("Half Image", one_sixteenth_image);
 	cv::imshow("nearest_neighbor Image", nearest_neighbor_image);
-	cv::imshow("bilinear Image", bilinear_image);
+	cv::imshow("Linear Image", linear_image);
+	cv::imshow("Bilinear Image", bilinear_image);
 	cv::waitKey(0);
 	return 0;
 }
