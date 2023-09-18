@@ -24,7 +24,7 @@ int main(int argc, char* argv[])
 	app.add_option("-i,--image", image_path, "location of input image");
 	CLI11_PARSE(app, argc, argv) // commandline extraction
 
-	cv::Mat full_img, new_image, one_sixteenth_image, upscale_image, nearest_neighbor_image, linear_image, bilinear_image;
+	cv::Mat full_img, bit_shifted_image, one_sixteenth_image, upscale_image, nearest_neighbor_image, linear_image, bilinear_image;
 	//string file_location = "H:/My Drive/CPP/CS_5550_Digital_Image_Processing/Assignment_1/lena.png";
 	full_img = cv::imread(cv::samples::findFile(image_path), cv::IMREAD_GRAYSCALE);
 
@@ -33,7 +33,7 @@ int main(int argc, char* argv[])
 	//int mySizes[n_Dimensions] = {512, 512};
 	int fullSize[n_Dimensions] = { full_img.rows, full_img.cols };
 
-	new_image = cv::Mat::zeros(n_Dimensions, fullSize, CV_8U);
+	bit_shifted_image = cv::Mat::zeros(n_Dimensions, fullSize, CV_8U);
 	nearest_neighbor_image = cv::Mat::zeros(n_Dimensions, fullSize, CV_8U);
 	linear_image = cv::Mat::zeros(n_Dimensions, fullSize, CV_8U);
 	bilinear_image = cv::Mat::zeros(n_Dimensions, fullSize, CV_8U);
@@ -47,14 +47,14 @@ int main(int argc, char* argv[])
 	std::cout << "size " << full_img.size() << " width " << width << " height " << height << " step " << _stride << endl;
 	cout << "full_img value at 00: " << (int)full_img.at<uchar>(0, 1) << endl;
 
-	// Test image copy
+	// Image copy
 	for (int i = 0; i < height; i++)
 	{
 		for (int j = 0; j < width; j++)
 		{
 			uint8_t val = myData[i * _stride + j];
 
-			new_image.at<uint8_t>(i,j) = full_img.at<uint8_t>(i,j);
+			bit_shifted_image.at<uint8_t>(i,j) = full_img.at<uint8_t>(i,j);
 
 		}
 	}
@@ -115,6 +115,7 @@ int main(int argc, char* argv[])
 			}
 		}
 	}
+
 	for (int i = 0; i < height; i++) {
 		for (int j = 0; j < width - 16; j += 16) {
 
@@ -162,10 +163,82 @@ int main(int argc, char* argv[])
 			}
 		}
 	}
+	
+
+	// 1bit
+
+		/*for (int i = 0; i < height; i++)
+		{
+			for (int j = 0; j < width; j++)
+			{
+
+				if (bit_shifted_image.at<uint8_t>(i, j) < 128) {
+					bit_shifted_image.at<uint8_t>(i, j) = 0; 
+				}
+				if (bit_shifted_image.at<uint8_t>(i, j) > 128) {
+					bit_shifted_image.at<uint8_t>(i, j) = 255;
+				}
+
+			}
+		}*/
+
+		//2bit
+		/*for (int i = 0; i < height; i++)
+		{
+			for (int j = 0; j < width; j++)
+			{
+
+				if (bit_shifted_image.at<uint8_t>(i, j) < 64) {
+					bit_shifted_image.at<uint8_t>(i, j) = 0;
+				}
+				if (bit_shifted_image.at<uint8_t>(i, j) > 64 && bit_shifted_image.at<uint8_t>(i, j) < 128) {
+					bit_shifted_image.at<uint8_t>(i, j) = 64;
+				}
+				if (bit_shifted_image.at<uint8_t>(i, j) > 128 && bit_shifted_image.at<uint8_t>(i, j) < 192) {
+					bit_shifted_image.at<uint8_t>(i, j) = 128;
+				}
+				if (bit_shifted_image.at<uint8_t>(i, j) > 192 && bit_shifted_image.at<uint8_t>(i, j) < 255) {
+					bit_shifted_image.at<uint8_t>(i, j) = 192;
+				}
+			}
+		}*/
+
+	
+		for (int i = 0; i < height; i++)
+		{
+			for (int j = 0; j < width; j++)
+			{
+				int n_bits = 2;
+				int max_bin = pow(2, n_bits);
+				int interval_size = 256 / max_bin;
+
+				for (int k = 0; k <= max_bin; k++) {
+					if (bit_shifted_image.at<uint8_t>(i, j) < interval_size) {
+						bit_shifted_image.at<uint8_t>(i, j) = 0;
+					}
+					if (bit_shifted_image.at<uint8_t>(i, j) > interval_size*k && bit_shifted_image.at<uint8_t>(i, j) < (interval_size*k + interval_size) ) {
+						bit_shifted_image.at<uint8_t>(i, j) = interval_size*k ;
+					}
+				}
+			}
+		}
+	
+	
+
+		/*for (int i = 0; i < height; i++)
+		{
+			for (int j = 0; j < width; j++)
+			{
+
+				bit_shifted_image.at<uint8_t>(i, j) = (uint8_t)floor(double(bit_shifted_image.at<uint8_t>(i, j)) * 0.5);
+
+			}
+		}*/
+	
 
 
 	cv::imshow("Full Image", full_img);
-	cv::imshow("Copy Image", new_image);
+	cv::imshow("Bit shifted Image", bit_shifted_image);
 	cv::imshow("Half Image", one_sixteenth_image);
 	cv::imshow("nearest_neighbor Image", nearest_neighbor_image);
 	cv::imshow("Linear Image", linear_image);
