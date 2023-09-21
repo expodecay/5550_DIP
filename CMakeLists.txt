@@ -1,24 +1,68 @@
-﻿# CMakeList.txt : CMake project for CMakeProject1test, include source and define
-# project specific logic here.
-#
-cmake_minimum_required (VERSION 3.8)
+﻿cmake_minimum_required(VERSION 3.14)
 
-project ("CMakeProject1test")
+if (WIN32)
+    project(MY_PROJECT LANGUAGES CXX)
+elseif(UNIX)
+    project(MY_PROJECT)
+endif()
 
+set(CMAKE_CONFIGURATION_TYPES "Debug;Release;RelWithDebInfo" CACHE STRING "" FORCE)
+
+#======================= INCLUSION OF OpenCV =======================#
 find_package(OpenCV REQUIRED PATHS "C:/OpenCV/build")
 find_package(OpenCV REQUIRED PATHS "C:/OpenCV/build/install")
 
+#======================= INCLUSION OF Qt =======================#
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTOUIC ON)
+set(CMAKE_PREFIX_PATH $ENV{QTDIR})
+find_package(Qt6Core REQUIRED)
+find_package(Qt6Widgets REQUIRED)
+
+#=================== INCLUSION OF Project Files ====================#
 include_directories(${OpenCV_INCLUDE_DIR})
+set(FORMS_DIR "${CMAKE_SOURCE_DIR}/forms")
+set(INCLUDE_DIR "${CMAKE_SOURCE_DIR}/include")
+set(SOURCE_DIR "${CMAKE_SOURCE_DIR}/src")
 
-add_subdirectory(${PROJECT_SOURCE_DIR}/libs/cli11)
+include_directories(${FORMS_DIR})
+include_directories(${INCLUDE_DIR})
+include_directories(${SOURCE_DIR})
 
-# Add source to this project's executable.
-add_executable (CMakeProject1test "CMakeProject1test.cpp" "CMakeProject1test.h")
+file(GLOB_RECURSE SOURCES
+    "${FORMS_DIR}/*.ui"
+    "${FORMS_DIR}/*.qrc"
+    "${INCLUDE_DIR}/*.h"
+    "${SOURCE_DIR}/*.cpp"
+)
 
-target_link_libraries(CMakeProject1test ${OpenCV_LIBS} CLI11::CLI11)
+#=================== SETUP EXECTUABLE ====================#
+# Enable debug logging on RELWITHDEBINFO configuration
+set_property(DIRECTORY APPEND PROPERTY COMPILE_DEFINITIONS
+    $<$<CONFIG:RELWITHDEBINFO>:QT_MESSAGELOGCONTEXT>
+)
 
-if (CMAKE_VERSION VERSION_GREATER 3.12)
-  set_property(TARGET CMakeProject1test PROPERTY CXX_STANDARD 20)
+# Add the forms directory to the AUTOUIC search paths
+set(CMAKE_AUTOUIC_SEARCH_PATHS ${CMAKE_AUTOUIC_SEARCH_PATHS} ${FORMS_DIR})
+
+# Add the executable
+if (WIN32) 
+    add_executable(MY_PROJECT ${SOURCES})
+elseif(UNIX)
+    add_executable(MY_PROJECT ${SOURCES})
 endif()
 
-# TODO: Add tests and install targets if needed.
+# Add the target includes for MY_PROJECT 
+target_include_directories(MY_PROJECT PRIVATE ${FORMS_DIR})
+target_include_directories(MY_PROJECT PRIVATE ${INCLUDE_DIR})
+target_include_directories(MY_PROJECT PRIVATE ${SOURCE_DIR})
+include_directories(${OpenCV_INCLUDE_DIR})
+
+#===================== LINKING LIBRARIES =======================#
+target_link_libraries(MY_PROJECT ${OpenCV_LIBS} Qt6::Widgets CLI11::CLI11)
+
+
+
+#===================== SUBMODULE DIRECTORIES =======================#
+add_subdirectory(${PROJECT_SOURCE_DIR}/libs/cli11)

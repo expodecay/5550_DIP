@@ -19,7 +19,7 @@ int main(int argc, char* argv[])
 {
 	CLI::App app{"CMakeProject1test"};
 
-	string image_path = "H:/My Drive/CPP/CS_5550_Digital_Image_Processing/Assignment_1/lena.png";
+	string image_path = "C:/Users/rickr/Documents/Repos/5550_DIP/images/lena.png";
 
 	app.add_option("-i,--image", image_path, "location of input image");
 	CLI11_PARSE(app, argc, argv) // commandline extraction
