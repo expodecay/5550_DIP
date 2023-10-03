@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>599</width>
-    <height>586</height>
+    <width>658</width>
+    <height>737</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,10 +15,22 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="2" column="0">
-     <widget class="QPushButton" name="pushButton_2">
+    <item row="0" column="0">
+     <widget class="QLabel" name="label_pic">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>512</width>
+        <height>512</height>
+       </size>
+      </property>
+      <property name="autoFillBackground">
+       <bool>true</bool>
+      </property>
       <property name="text">
-       <string>PushButton</string>
+       <string/>
       </property>
      </widget>
     </item>
@@ -34,14 +46,15 @@
       </property>
      </widget>
     </item>
-    <item row="0" column="0">
-     <widget class="QLabel" name="label_pic">
-      <property name="enabled">
-       <bool>true</bool>
+    <item row="2" column="0">
+     <widget class="QPushButton" name="pushButton_2">
+      <property name="text">
+       <string>PushButton</string>
       </property>
-      <property name="autoFillBackground">
-       <bool>true</bool>
-      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QLabel" name="label_pic2">
       <property name="text">
        <string/>
       </property>
@@ -54,7 +67,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>599</width>
+     <width>658</width>
      <height>22</height>
     </rect>
    </property>
