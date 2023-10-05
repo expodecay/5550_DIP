@@ -14,14 +14,19 @@
 #include <mainwindow.h>
 
 using namespace std;
+static void insert()
+{
+	std::cout << "hi" << std::endl;
+}
 
 int main(int argc, char* argv[])
 {
+	
 	QApplication app(argc, argv);
 	
 		MainWindow* window = new MainWindow();
 		window->show();
-	
+		insert();
 		return app.exec();
 	// 
 	//CLI::App app{"CMakeProject1test"};
