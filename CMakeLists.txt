@@ -1,9 +1,9 @@
 ﻿cmake_minimum_required(VERSION 3.14)
 
 if (WIN32)
-    project(MY_PROJECT LANGUAGES CXX)
+    project(IMAGE_PROCESSING LANGUAGES CXX)
 elseif(UNIX)
-    project(MY_PROJECT)
+    project(IMAGE_PROCESSING)
 endif()
 
 set(CMAKE_CONFIGURATION_TYPES "Debug;Release;RelWithDebInfo" CACHE STRING "" FORCE)
@@ -48,19 +48,19 @@ set(CMAKE_AUTOUIC_SEARCH_PATHS ${CMAKE_AUTOUIC_SEARCH_PATHS} ${FORMS_DIR})
 
 # Add the executable
 if (WIN32) 
-    add_executable(MY_PROJECT ${SOURCES})
+    add_executable(IMAGE_PROCESSING ${SOURCES})
 elseif(UNIX)
-    add_executable(MY_PROJECT ${SOURCES})
+    add_executable(IMAGE_PROCESSING ${SOURCES})
 endif()
 
-# Add the target includes for MY_PROJECT 
-target_include_directories(MY_PROJECT PRIVATE ${FORMS_DIR})
-target_include_directories(MY_PROJECT PRIVATE ${INCLUDE_DIR})
-target_include_directories(MY_PROJECT PRIVATE ${SOURCE_DIR})
+# Add the target includes for IMAGE_PROCESSING 
+target_include_directories(IMAGE_PROCESSING PRIVATE ${FORMS_DIR})
+target_include_directories(IMAGE_PROCESSING PRIVATE ${INCLUDE_DIR})
+target_include_directories(IMAGE_PROCESSING PRIVATE ${SOURCE_DIR})
 include_directories(${OpenCV_INCLUDE_DIR})
 
 #===================== LINKING LIBRARIES =======================#
-target_link_libraries(MY_PROJECT ${OpenCV_LIBS} Qt6::Widgets CLI11::CLI11)
+target_link_libraries(IMAGE_PROCESSING ${OpenCV_LIBS} Qt6::Widgets CLI11::CLI11)
 
 
 

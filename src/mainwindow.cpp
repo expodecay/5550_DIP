@@ -3,6 +3,9 @@
 
 #include <QPixmap>
 
+#include <iostream>
+
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -15,7 +18,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     QPushButton* button = new QPushButton("&Download", this);
 
-    connect(ui->pushButton_2, SIGNAL(clicked()), SLOT(showPhoto()));
+    /*connect(ui->pushButton_2, SIGNAL(clicked()), SLOT(showPhoto()));*/
+    connect(ui->pushButton_2, SIGNAL(clicked()), SLOT(helloQT()));
 }
 
 MainWindow::~MainWindow()
@@ -27,4 +31,14 @@ void MainWindow::showPhoto()
 {
     QPixmap pix("C:/Users/rickr/Documents/Repos/5550_DIP/images/lena.png");
     ui->label_pic->setPixmap(pix);
+}
+
+void MainWindow::goodby()
+{
+    std::cout << "by" << std::endl;
+}
+
+void MainWindow::helloQT()
+{
+   hello();
 }

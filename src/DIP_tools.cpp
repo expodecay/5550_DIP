@@ -13,21 +13,17 @@
 #include <CLI/CLI.hpp>
 #include <mainwindow.h>
 
+
 using namespace std;
-static void insert()
+
+void hello()
 {
-	std::cout << "hi" << std::endl;
+	std::cout << "hiiiiiiiiii" << std::endl;
 }
 
-int main(int argc, char* argv[])
-{
-	
-	QApplication app(argc, argv);
-	
-		MainWindow* window = new MainWindow();
-		window->show();
-		insert();
-		return app.exec();
+
+//int main(int argc, char* argv[])
+//{
 	// 
 	//CLI::App app{"CMakeProject1test"};
 
@@ -257,4 +253,4 @@ int main(int argc, char* argv[])
 	//cv::imshow("Bilinear Image", bilinear_image);
 	//cv::waitKey(0);
 	//return 0;
-}
+//}
