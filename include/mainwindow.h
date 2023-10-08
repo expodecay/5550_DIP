@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "DIP_tools.h"
+
 
 namespace Ui {
 class MainWindow;

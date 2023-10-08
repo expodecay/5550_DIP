@@ -1,17 +1,16 @@
 ﻿// CMakeProject1test.cpp : Defines the entry point for the application.
 //
-#include <QApplication>
 #include "DIP_tools.h"
 
 #include <fstream>
 #include <string>
+
 #include "opencv2/opencv_modules.hpp"
 #include <opencv2/core/utility.hpp>
 #include "opencv2/imgcodecs.hpp"
 #include "opencv2/highgui.hpp"
 
 #include <CLI/CLI.hpp>
-#include <mainwindow.h>
 
 
 using namespace std;

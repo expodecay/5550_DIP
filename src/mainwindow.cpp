@@ -4,6 +4,7 @@
 #include <QPixmap>
 
 #include <iostream>
+#include "DIP_tools.h"
 
 
 MainWindow::MainWindow(QWidget *parent) :
