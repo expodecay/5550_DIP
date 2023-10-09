@@ -3,7 +3,6 @@
 
 #include <QMainWindow>
 
-
 namespace Ui {
     class MainWindow;
 }
@@ -17,8 +16,7 @@ public:
     ~MainWindow();
 
 private slots:
-    void showPhoto();
-    void goodby();
+    void showPhoto(QString path);
     void NearestNeighborInterpolationQT();
     void GlobalHistogramEqualizationQT();
 

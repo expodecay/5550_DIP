@@ -96,50 +96,7 @@ void GlobalHistogramEqualization()
 	cv::imwrite("C:/Users/rickr/Documents/Repos/5550_DIP/output/histogram_equalization_image.png", histogram_equalization_image);
 }
 
-void equalizeHistogram(int* pdata, int width, int height, int max_val)
-{
-	max_val = 255;
-    int total = width * height;
-    int n_bins = max_val + 1;
 
-    // Compute histogram
-    vector<int> hist(n_bins, 0);
-    for (int i = 0; i < total; ++i) {
-        hist[pdata[i]]++;
-    }
-
-    // Build LUT from cumulative histrogram
-
-    // Find first non-zero bin
-    int i = 0;
-    while (!hist[i]) ++i;
-
-    if (hist[i] == total) {
-        for (int j = 0; j < total; ++j) {
-            pdata[j] = i;
-        }
-        return;
-    }
-
-    // Compute scale
-    float scale = (n_bins - 1.f) / (total - hist[i]);
-
-    // Initialize lut
-    vector<int> lut(n_bins, 0);
-    i++;
-
-    int sum = 0;
-    for (; i < hist.size(); ++i) {
-        sum += hist[i];
-        // the value is saturated in range [0, max_val]
-        lut[i] = max(0, min(int(round(sum * scale)), max_val));
-    }
-
-    // Apply equalization
-    for (int i = 0; i < total; ++i) {
-        pdata[i] = lut[pdata[i]];
-    }
-}
 //int main(int argc, char* argv[])
 //{
 //	 

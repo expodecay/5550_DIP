@@ -29,26 +29,20 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::showPhoto()
+void MainWindow::showPhoto(QString path)
 {
-    QPixmap pix("C:/Users/rickr/Documents/Repos/5550_DIP/images/lena.png");
+    QPixmap pix(path);
     ui->label_pic->setPixmap(pix);
-}
-
-void MainWindow::goodby()
-{
-    std::cout << "by" << std::endl;
 }
 
 void MainWindow::NearestNeighborInterpolationQT()
 {
     NearestNeighborInterpolation();
-    QPixmap pix3("C:/Users/rickr/Documents/Repos/5550_DIP/output/nearest_neighbor_image.png");
-    ui->label_pic->setPixmap(pix3);
+    showPhoto("C:/Users/rickr/Documents/Repos/5550_DIP/output/nearest_neighbor_image.png");
+    
 }
 void MainWindow::GlobalHistogramEqualizationQT()
 {
     GlobalHistogramEqualization();
-    QPixmap pix3("C:/Users/rickr/Documents/Repos/5550_DIP/output/histogram_equalization_image.png");
-    ui->label_pic->setPixmap(pix3);
+    showPhoto("C:/Users/rickr/Documents/Repos/5550_DIP/output/histogram_equalization_image.png");
 }
