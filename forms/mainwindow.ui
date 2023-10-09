@@ -15,7 +15,7 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0">
+    <item row="0" column="2">
      <widget class="QLabel" name="label_pic">
       <property name="enabled">
        <bool>true</bool>
@@ -34,29 +34,29 @@
       </property>
      </widget>
     </item>
+    <item row="2" column="0">
+     <widget class="QPushButton" name="Nearest_Neighbor_Interpolation">
+      <property name="text">
+       <string>Nearest Neighbor Interpolation</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="QLabel" name="label_pic2">
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
     <item row="3" column="0">
      <widget class="QPushButton" name="pushButton">
       <property name="font">
        <font>
-        <pointsize>24</pointsize>
+        <pointsize>9</pointsize>
        </font>
       </property>
       <property name="text">
-       <string>CLick me</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="0">
-     <widget class="QPushButton" name="pushButton_2">
-      <property name="text">
-       <string>PushButton</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="1">
-     <widget class="QLabel" name="label_pic2">
-      <property name="text">
-       <string/>
+       <string>Linear Interpolation</string>
       </property>
      </widget>
     </item>
@@ -77,7 +77,7 @@
  <resources/>
  <connections>
   <connection>
-   <sender>pushButton_2</sender>
+   <sender>Nearest_Neighbor_Interpolation</sender>
    <signal>clicked()</signal>
    <receiver>label_pic</receiver>
    <slot>setFocus()</slot>

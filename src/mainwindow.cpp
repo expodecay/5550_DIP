@@ -7,12 +7,12 @@
 #include "DIP_tools.h"
 
 
-MainWindow::MainWindow(QWidget *parent) :
+MainWindow::MainWindow(QWidget* parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-     
+
 
     QPixmap pix2("C:/Users/rickr/Documents/Repos/5550_DIP/images/lenaTest.png");
     ui->label_pic2->setPixmap(pix2);
@@ -20,7 +20,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QPushButton* button = new QPushButton("&Download", this);
 
     /*connect(ui->pushButton_2, SIGNAL(clicked()), SLOT(showPhoto()));*/
-    connect(ui->pushButton_2, SIGNAL(clicked()), SLOT(helloQT()));
+    connect(ui->Nearest_Neighbor_Interpolation, SIGNAL(clicked()), SLOT(NearestNeighborInterpolationQT()));
 }
 
 MainWindow::~MainWindow()
@@ -39,7 +39,9 @@ void MainWindow::goodby()
     std::cout << "by" << std::endl;
 }
 
-void MainWindow::helloQT()
+void MainWindow::NearestNeighborInterpolationQT()
 {
-   hello();
+    NearestNeighborInterpolation();
+    QPixmap pix3("C:/Users/rickr/Documents/Repos/5550_DIP/output/nearest_neighbor_image.png");
+    ui->label_pic->setPixmap(pix3);
 }
