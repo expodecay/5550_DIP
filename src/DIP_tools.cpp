@@ -60,16 +60,39 @@ void NearestNeighborInterpolation()
 	cv::imwrite("C:/Users/rickr/Documents/Repos/5550_DIP/output/nearest_neighbor_image.png", nearest_neighbor_image);
 }
 
-void HistogramEqualization() 
+void GlobalHistogramEqualization()
 {
-	std::cout << "void HistogramEqualization()" << std::endl;
+	std::cout << "HistogramEqualization()" << std::endl;
 	full_img = cv::imread(cv::samples::findFile(image_path), cv::IMREAD_GRAYSCALE);
 	int fullSize[n_Dimensions] = { full_img.rows, full_img.cols };
 	cv::Mat histogram_equalization_image = cv::Mat::zeros(n_Dimensions, fullSize, CV_8U);
 
-	//cv::cvtColor(full_img, full_img, cv::COLOR_BGR2GRAY);
-	cv::equalizeHist(full_img, histogram_equalization_image);
+	//cv::equalizeHist(full_img, histogram_equalization_image);
 
+	int intensity[256] = { 0 };
+	double probability[256] = { 0 };
+	double cumulativeProbability[256] = { 0 };
+	//pixelFrequency
+	for (int j = 0; j < full_img.rows; j++)
+		for (int i = 0; i < full_img.cols; i++)
+			intensity[int(full_img.at<uchar>(j, i))]++;
+	//pixelProbability
+	for (int i = 0; i < 256; i++)
+		probability[i] = intensity[i] / double(full_img.rows * full_img.cols);
+	//cumuProbability
+	cumulativeProbability[0] = probability[0];
+	for (int i = 1; i < 256; i++)
+		cumulativeProbability[i] = probability[i] + cumulativeProbability[i - 1];
+	for (int i = 0; i < 256; i++)
+		cumulativeProbability[i] = floor(cumulativeProbability[i] * 255);
+	for (int j = 0; j < full_img.rows; j++)
+	{
+		for (int i = 0; i < full_img.cols; i++)
+		{
+			//int color = cumulativeProbability[int(img.at<uchar>(i, j))];
+			histogram_equalization_image.at<uchar>(i, j) = cumulativeProbability[int(full_img.at<uchar>(i, j))];
+		}
+	}
 	cv::imwrite("C:/Users/rickr/Documents/Repos/5550_DIP/output/histogram_equalization_image.png", histogram_equalization_image);
 }
 

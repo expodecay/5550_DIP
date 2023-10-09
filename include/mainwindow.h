@@ -20,7 +20,7 @@ private slots:
     void showPhoto();
     void goodby();
     void NearestNeighborInterpolationQT();
-    void HistogramEqualizationQT();
+    void GlobalHistogramEqualizationQT();
 
 private:
     Ui::MainWindow* ui;

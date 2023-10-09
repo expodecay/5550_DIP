@@ -2,5 +2,5 @@
 
 #include <iostream>
 void NearestNeighborInterpolation();
-void HistogramEqualization();
+void GlobalHistogramEqualization();
 void equalizeHistogram(int* pdata, int width, int height, int max_val);
