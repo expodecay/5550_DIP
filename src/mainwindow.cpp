@@ -19,9 +19,9 @@ MainWindow::MainWindow(QWidget* parent) :
 
     QPushButton* button = new QPushButton("&Download", this);
 
-    /*connect(ui->pushButton_2, SIGNAL(clicked()), SLOT(showPhoto()));*/
     connect(ui->Nearest_Neighbor_Interpolation, SIGNAL(clicked()), SLOT(NearestNeighborInterpolationQT()));
     connect(ui->Histogram_Equalization, SIGNAL(clicked()), SLOT(GlobalHistogramEqualizationQT()));
+    connect(ui->Local_Histogram, SIGNAL(clicked()), SLOT(LocalHistogramEqualizationQT()));
 }
 
 MainWindow::~MainWindow()
@@ -44,5 +44,12 @@ void MainWindow::NearestNeighborInterpolationQT()
 void MainWindow::GlobalHistogramEqualizationQT()
 {
     GlobalHistogramEqualization();
-    showPhoto("C:/Users/rickr/Documents/Repos/5550_DIP/output/histogram_equalization_image.png");
+    showPhoto("C:/Users/rickr/Documents/Repos/5550_DIP/output/global_histogram_equalization_image.png");
+}
+
+void MainWindow::LocalHistogramEqualizationQT()
+{
+    LocalHistogramEqualization();
+    showPhoto("C:/Users/rickr/Documents/Repos/5550_DIP/output/local_histogram_equalization_image.png");
+
 }

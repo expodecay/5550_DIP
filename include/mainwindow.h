@@ -19,6 +19,7 @@ private slots:
     void showPhoto(QString path);
     void NearestNeighborInterpolationQT();
     void GlobalHistogramEqualizationQT();
+    void LocalHistogramEqualizationQT();
 
 private:
     Ui::MainWindow* ui;

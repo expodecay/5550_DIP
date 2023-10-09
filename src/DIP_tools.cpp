@@ -65,13 +65,12 @@ void GlobalHistogramEqualization()
 	std::cout << "HistogramEqualization()" << std::endl;
 	full_img = cv::imread(cv::samples::findFile(image_path), cv::IMREAD_GRAYSCALE);
 	int fullSize[n_Dimensions] = { full_img.rows, full_img.cols };
-	cv::Mat histogram_equalization_image = cv::Mat::zeros(n_Dimensions, fullSize, CV_8U);
-
-	//cv::equalizeHist(full_img, histogram_equalization_image);
+	cv::Mat global_histogram_equalization_image = cv::Mat::zeros(n_Dimensions, fullSize, CV_8U);
 
 	int intensity[256] = { 0 };
 	double probability[256] = { 0 };
 	double cumulativeProbability[256] = { 0 };
+
 	//pixelFrequency
 	for (int j = 0; j < full_img.rows; j++)
 		for (int i = 0; i < full_img.cols; i++)
@@ -90,13 +89,29 @@ void GlobalHistogramEqualization()
 		for (int i = 0; i < full_img.cols; i++)
 		{
 			//int color = cumulativeProbability[int(img.at<uchar>(i, j))];
-			histogram_equalization_image.at<uchar>(i, j) = cumulativeProbability[int(full_img.at<uchar>(i, j))];
+			global_histogram_equalization_image.at<uchar>(i, j) = cumulativeProbability[int(full_img.at<uchar>(i, j))];
 		}
 	}
-	cv::imwrite("C:/Users/rickr/Documents/Repos/5550_DIP/output/histogram_equalization_image.png", histogram_equalization_image);
+	cv::imwrite("C:/Users/rickr/Documents/Repos/5550_DIP/output/global_histogram_equalization_image.png", global_histogram_equalization_image);
 }
 
+void LocalHistogramEqualization()
+{
+	std::cout << "LocalHistogramEqualization()" << std::endl;
+	full_img = cv::imread(cv::samples::findFile(image_path), cv::IMREAD_GRAYSCALE);
+	int fullSize[n_Dimensions] = { full_img.rows, full_img.cols };
+	cv::Mat local_histogram_equalization_image = cv::Mat::zeros(n_Dimensions, fullSize, CV_8U);
 
+	int intensity[256] = { 0 };
+	double probability[256] = { 0 };
+	double cumulativeProbability[256] = { 0 };
+
+	cv::Ptr<cv::CLAHE> clahe = cv::createCLAHE(2.0,cv::Size(3,3));
+
+	clahe->apply(full_img, local_histogram_equalization_image);
+	cv::imwrite("C:/Users/rickr/Documents/Repos/5550_DIP/output/local_histogram_equalization_image.png", local_histogram_equalization_image);
+
+}
 //int main(int argc, char* argv[])
 //{
 //	 

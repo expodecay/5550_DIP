@@ -3,3 +3,4 @@
 #include <iostream>
 void NearestNeighborInterpolation();
 void GlobalHistogramEqualization();
+void LocalHistogramEqualization();
