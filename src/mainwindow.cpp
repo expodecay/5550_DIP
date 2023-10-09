@@ -21,6 +21,7 @@ MainWindow::MainWindow(QWidget* parent) :
 
     /*connect(ui->pushButton_2, SIGNAL(clicked()), SLOT(showPhoto()));*/
     connect(ui->Nearest_Neighbor_Interpolation, SIGNAL(clicked()), SLOT(NearestNeighborInterpolationQT()));
+    connect(ui->Histogram_Equalization, SIGNAL(clicked()), SLOT(HistogramEqualizationQT()));
 }
 
 MainWindow::~MainWindow()
@@ -43,5 +44,11 @@ void MainWindow::NearestNeighborInterpolationQT()
 {
     NearestNeighborInterpolation();
     QPixmap pix3("C:/Users/rickr/Documents/Repos/5550_DIP/output/nearest_neighbor_image.png");
+    ui->label_pic->setPixmap(pix3);
+}
+void MainWindow::HistogramEqualizationQT()
+{
+    HistogramEqualization();
+    QPixmap pix3("C:/Users/rickr/Documents/Repos/5550_DIP/output/histogram_equalization_image.png");
     ui->label_pic->setPixmap(pix3);
 }

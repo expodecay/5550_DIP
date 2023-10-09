@@ -49,14 +49,14 @@
      </widget>
     </item>
     <item row="3" column="0">
-     <widget class="QPushButton" name="pushButton">
+     <widget class="QPushButton" name="Histogram_Equalization">
       <property name="font">
        <font>
         <pointsize>9</pointsize>
        </font>
       </property>
       <property name="text">
-       <string>Linear Interpolation</string>
+       <string>Histogram Equalization</string>
       </property>
      </widget>
     </item>
@@ -93,7 +93,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>pushButton</sender>
+   <sender>Histogram_Equalization</sender>
    <signal>clicked()</signal>
    <receiver>label_pic</receiver>
    <slot>raise()</slot>
