@@ -19,7 +19,7 @@
 
 using namespace std;
 
-string image_path = "C:/Users/rickr/Documents/Repos/5550_DIP/images/test.png";
+string image_path = "C:/Users/rickr/Documents/Repos/5550_DIP/images/lena.png";
 cv::Mat full_img;
 
 const int n_Channel = 1;
@@ -117,21 +117,23 @@ void LocalHistogramEqualization()
 	/*cv::Ptr<cv::CLAHE> clahe = cv::createCLAHE(2.0,cv::Size(9,9));
 	clahe->apply(full_img, local_histogram_equalization_image);*/
 	
-	int kernelSize[n_Dimensions] = { std::clamp(512, 3, full_img.cols), std::clamp(512, 3, full_img.rows) }; //min 3x3nmax 512x512, going over & under clams to min / max
+	int kernelSize[n_Dimensions] = { std::clamp(9, 3, full_img.cols), std::clamp(9, 3, full_img.rows) }; //min 3x3nmax 512x512, going over & under clams to min / max
 
 	int sub_offset_x = full_img.cols - (full_img.cols / kernelSize[0]) * kernelSize[0];
 	int sub_offset_y = full_img.rows - (full_img.rows / kernelSize[1]) * kernelSize[1];
 
 	cv::Mat kernel = cv::Mat::zeros(n_Dimensions, kernelSize, CV_8U);
 	//pixelFrequency
-	for (int i = 0; i < full_img.rows-sub_offset_y; i+= kernelSize[0]) {
-		for (int j = 0; j < full_img.cols-sub_offset_x; j+= kernelSize[1]) { // for every pixel in image, hist eq over kernel
+	//for (int i = 0; i < full_img.rows-sub_offset_y; i+= kernelSize[0]) {
+	for (int i = kernelSize[1]; i < full_img.rows- kernelSize[1]; i++) {
+		//for (int j = 0; j < full_img.cols-sub_offset_x; j+= kernelSize[1]) { // for every pixel in image, hist eq over kernel
+		for (int j = kernelSize[0]; j < full_img.cols- kernelSize[0]; j++) { // for every pixel in image, hist eq over kernel
 			int intensity[256] = { 0 };
 			double probability[256] = { 0 };
 			double cumulativeProbability[256] = { 0 };
 
-			for (int k = 0; k < kernel.rows; k++) {
-				for (int l = 0; l < kernel.cols; l++) { 
+			for (int k = -(kernelSize[1] / 2); k <= (kernelSize[1] / 2) ; k++) {
+				for (int l = -(kernelSize[1] / 2); l <= (kernelSize[1] / 2); l++) {
 
 					intensity[int(full_img.at<uchar>(k+i, l+j))]++;
 					//pixelProbability
@@ -144,22 +146,25 @@ void LocalHistogramEqualization()
 						cumulativeProbability[n] = probability[n] + cumulativeProbability[n - 1];
 					}
 					for (int p = 0; p < 256; p++) {
-						cumulativeProbability[p] = floor(cumulativeProbability[p] * 255);
+						cumulativeProbability[p] = round(cumulativeProbability[p] * 255);
 					}
 					
 				}
 			}
-			for (int k = 0; k < kernel.rows; k++)
-			{
-				for (int l = 0; l < kernel.cols; l++)
-				{
-					//int color = cumulativeProbability[int(img.at<uchar>(i, j))];
-					local_histogram_equalization_image.at<uint8_t>(k + i, l + j) = cumulativeProbability[int(full_img.at<uchar>(k + i, l + j))];
-				}
-			}
+			
+			//for (int k = 0; k < kernel.rows; k++)
+			//{
+			//	for (int l = 0; l < kernel.cols; l++)
+			//	{
+			//		//int color = cumulativeProbability[int(img.at<uchar>(i, j))];
+			//		local_histogram_equalization_image.at<uint8_t>(k + i, l + j) = cumulativeProbability[int(full_img.at<uchar>(k + i, l + j))];
+			//	}
+			//}
+
+			local_histogram_equalization_image.at<uint8_t>(i, j) = cumulativeProbability[int(full_img.at<uchar>(i, j))];
 		}
 	}
-	cout << "here" << endl;
+	std::cout << "here" << endl;
 	cv::imwrite("C:/Users/rickr/Documents/Repos/5550_DIP/output/local_histogram_equalization_image.png", local_histogram_equalization_image);
 
 }
