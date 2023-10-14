@@ -21,6 +21,7 @@ private slots:
     void GlobalHistogramEqualizationQT();
     void LocalHistogramEqualizationQT();
     void SmoothingFilterQT();
+    void MedianFilterQT();
 
 private:
     Ui::MainWindow* ui;

@@ -207,7 +207,43 @@ void SmoothingFilter()
 
 }
 
+void MedianFilter()
+{
+	std::cout << "MedianFilter()" << std::endl;
+	full_img = cv::imread(cv::samples::findFile(image_path), cv::IMREAD_GRAYSCALE);
+	int fullSize[n_Dimensions] = { full_img.rows, full_img.cols };
+	cv::Mat median_filter_image = cv::Mat::zeros(n_Dimensions, fullSize, CV_8U);
+	// Image copy
+	for (int i = 0; i < full_img.rows; i++)
+	{
+		for (int j = 0; j < full_img.cols; j++)
+		{
+			//uint8_t val = myData[i * _stride + j];
+			median_filter_image.at<uint8_t>(i, j) = full_img.at<uint8_t>(i, j);
+		}
+	}
+	int kernelSize[n_Dimensions] = { std::clamp(7, 3, full_img.cols), std::clamp(7, 3, full_img.rows) };
+	cv::Mat kernel = cv::Mat::zeros(n_Dimensions, kernelSize, CV_8U);
+	
+	
 
+	for (int i = kernelSize[1]; i < full_img.rows - kernelSize[1]; i++) {
+		for (int j = kernelSize[0]; j < full_img.cols - kernelSize[0]; j++) {
+			std::vector<int> pixel_values;
+			int median_value;
+			for (int k = -(kernelSize[1] / 2); k <= (kernelSize[1] / 2); k++) {
+				for (int l = -(kernelSize[1] / 2); l <= (kernelSize[1] / 2); l++) {
+					pixel_values.push_back(full_img.at<uint8_t>(k + i, l + j));
+				}
+			}
+			std::sort(pixel_values.begin(), pixel_values.end());
+			median_value = pixel_values[pixel_values.size() / 2];
+			median_filter_image.at<uint8_t>(i, j) = median_value;
+
+		}
+	}
+	cv::imwrite("C:/Users/rickr/Documents/Repos/5550_DIP/output/median_filter_image.png", median_filter_image);
+}
 
 //int main(int argc, char* argv[])
 //{
