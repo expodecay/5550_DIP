@@ -4,3 +4,4 @@
 void NearestNeighborInterpolation();
 void GlobalHistogramEqualization();
 void LocalHistogramEqualization();
+void SmoothingFilter();

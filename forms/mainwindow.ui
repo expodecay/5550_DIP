@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1186</width>
+    <width>993</width>
     <height>737</height>
    </rect>
   </property>
@@ -15,6 +15,25 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="2">
+     <widget class="QLabel" name="label_pic">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>512</width>
+        <height>512</height>
+       </size>
+      </property>
+      <property name="autoFillBackground">
+       <bool>true</bool>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
     <item row="0" column="0">
      <widget class="QLabel" name="label_pic2">
       <property name="text">
@@ -41,29 +60,17 @@
       </property>
      </widget>
     </item>
-    <item row="0" column="2">
-     <widget class="QLabel" name="label_pic">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>512</width>
-        <height>512</height>
-       </size>
-      </property>
-      <property name="autoFillBackground">
-       <bool>true</bool>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
     <item row="5" column="0" alignment="Qt::AlignLeft">
      <widget class="QPushButton" name="Local_Histogram">
       <property name="text">
        <string>Local Histogram</string>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="0" alignment="Qt::AlignLeft">
+     <widget class="QPushButton" name="Smoothing_Filter">
+      <property name="text">
+       <string>Smoothing Filter</string>
       </property>
      </widget>
     </item>
@@ -74,7 +81,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1186</width>
+     <width>993</width>
      <height>22</height>
     </rect>
    </property>

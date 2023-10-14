@@ -22,6 +22,7 @@ MainWindow::MainWindow(QWidget* parent) :
     connect(ui->Nearest_Neighbor_Interpolation, SIGNAL(clicked()), SLOT(NearestNeighborInterpolationQT()));
     connect(ui->Histogram_Equalization, SIGNAL(clicked()), SLOT(GlobalHistogramEqualizationQT()));
     connect(ui->Local_Histogram, SIGNAL(clicked()), SLOT(LocalHistogramEqualizationQT()));
+    connect(ui->Smoothing_Filter, SIGNAL(clicked()), SLOT(SmoothingFilterQT()));
 }
 
 MainWindow::~MainWindow()
@@ -51,5 +52,12 @@ void MainWindow::LocalHistogramEqualizationQT()
 {
     LocalHistogramEqualization();
     showPhoto("C:/Users/rickr/Documents/Repos/5550_DIP/output/local_histogram_equalization_image.png");
+
+}
+
+void MainWindow::SmoothingFilterQT()
+{
+    SmoothingFilter();
+    showPhoto("C:/Users/rickr/Documents/Repos/5550_DIP/output/smoothing_filter.png");
 
 }

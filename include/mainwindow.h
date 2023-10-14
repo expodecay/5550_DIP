@@ -20,6 +20,7 @@ private slots:
     void NearestNeighborInterpolationQT();
     void GlobalHistogramEqualizationQT();
     void LocalHistogramEqualizationQT();
+    void SmoothingFilterQT();
 
 private:
     Ui::MainWindow* ui;
