@@ -24,7 +24,9 @@ MainWindow::MainWindow(QWidget* parent) :
     connect(ui->Local_Histogram, SIGNAL(clicked()), SLOT(LocalHistogramEqualizationQT()));
     connect(ui->Smoothing_Filter, SIGNAL(clicked()), SLOT(SmoothingFilterQT()));
     connect(ui->Median_Filter, SIGNAL(clicked()), SLOT(MedianFilterQT()));
+    connect(ui->Laplacian_Filter, SIGNAL(clicked()), SLOT(LaplacianFilterQT()));
 }
+
 
 MainWindow::~MainWindow()
 {
@@ -65,4 +67,10 @@ void MainWindow::MedianFilterQT()
 {
     MedianFilter();
     showPhoto("C:/Users/rickr/Documents/Repos/5550_DIP/output/median_filter_image.png");
+}
+
+void MainWindow::LaplacianFilterQT()
+{
+    LaplacianFilter();
+    showPhoto("C:/Users/rickr/Documents/Repos/5550_DIP/output/laplacian_filter_image.png");
 }

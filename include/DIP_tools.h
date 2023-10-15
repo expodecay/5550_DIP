@@ -6,3 +6,4 @@ void GlobalHistogramEqualization();
 void LocalHistogramEqualization();
 void SmoothingFilter();
 void MedianFilter();
+void LaplacianFilter();

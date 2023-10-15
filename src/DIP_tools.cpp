@@ -224,8 +224,6 @@ void MedianFilter()
 	}
 	int kernelSize[n_Dimensions] = { std::clamp(7, 3, full_img.cols), std::clamp(7, 3, full_img.rows) };
 	cv::Mat kernel = cv::Mat::zeros(n_Dimensions, kernelSize, CV_8U);
-	
-	
 
 	for (int i = kernelSize[1]; i < full_img.rows - kernelSize[1]; i++) {
 		for (int j = kernelSize[0]; j < full_img.cols - kernelSize[0]; j++) {
@@ -243,6 +241,59 @@ void MedianFilter()
 		}
 	}
 	cv::imwrite("C:/Users/rickr/Documents/Repos/5550_DIP/output/median_filter_image.png", median_filter_image);
+}
+
+void LaplacianFilter()
+{
+	std::cout << "LaplacianFilter()" << std::endl;
+	full_img = cv::imread(cv::samples::findFile(image_path), cv::IMREAD_GRAYSCALE);
+	int fullSize[n_Dimensions] = { full_img.rows, full_img.cols };
+	cv::Mat laplacian_filter_image = cv::Mat::zeros(n_Dimensions, fullSize, CV_8U);
+	//cv::Mat workspace(n_Dimensions, fullSize, CV_8U, 255);
+	cv::Mat workspace = cv::Mat::zeros(n_Dimensions, fullSize, CV_8U);
+	// Image copy
+	for (int i = 0; i < full_img.rows; i++)
+	{
+		for (int j = 0; j < full_img.cols; j++)
+		{
+			//uint8_t val = myData[i * _stride + j];
+			laplacian_filter_image.at<uint8_t>(i, j) = full_img.at<uint8_t>(i, j);
+		}
+	}
+
+
+	int kernelSize[n_Dimensions] = { std::clamp(3, 3, full_img.cols), std::clamp(3, 3, full_img.rows) };
+	cv::Mat kernel = cv::Mat::zeros(n_Dimensions, kernelSize, CV_8S);
+	kernel.at<uint8_t>(0, 0) = 0;
+	kernel.at<uint8_t>(0, 1) = 1;
+	kernel.at<uint8_t>(0, 2) = 0;
+	kernel.at<uint8_t>(1, 0) = 1;
+	kernel.at<uint8_t>(1, 1) = -4;
+	kernel.at<uint8_t>(1, 2) = 1;
+	kernel.at<uint8_t>(2, 0) = 0;
+	kernel.at<uint8_t>(2, 1) = 1;
+	kernel.at<uint8_t>(2, 2) = 0;
+
+	for (int i = kernelSize[1]; i < full_img.rows - kernelSize[1]; i++) {
+		for (int j = kernelSize[0]; j < full_img.cols - kernelSize[0]; j++) {
+			double convolved_value = 0.0;
+			for (int k = -(kernelSize[1] / 2); k <= (kernelSize[1] / 2); k++) {
+				for (int l = -(kernelSize[1] / 2); l <= (kernelSize[1] / 2); l++) {
+					int kernel_x_index = k + kernelSize[1] / 2;
+					int kernel_y_index = l + kernelSize[1] / 2;
+					float current_kernel_value = kernel.at<int8_t>(kernel_x_index, kernel_y_index);
+					float current_image_value = full_img.at<uint8_t>(kernel_x_index + i, kernel_y_index + j);
+					float new_value = current_image_value * current_kernel_value;
+					
+					convolved_value += new_value;
+				}
+			}
+			//workspace.at<uint8_t>(i, j) = static_cast<uint8_t>(std::clamp(static_cast<float>(full_img.at<uint8_t>(i, j)) + convolved_value, 0.0, 255.0));
+			workspace.at<uint8_t>(i, j) = static_cast<uint8_t>(std::clamp(convolved_value +128, 0.0, 255.0));
+		}
+	}
+	laplacian_filter_image = full_img - workspace;
+	cv::imwrite("C:/Users/rickr/Documents/Repos/5550_DIP/output/laplacian_filter_image.png", laplacian_filter_image);
 }
 
 //int main(int argc, char* argv[])

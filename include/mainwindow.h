@@ -22,6 +22,7 @@ private slots:
     void LocalHistogramEqualizationQT();
     void SmoothingFilterQT();
     void MedianFilterQT();
+    void LaplacianFilterQT();
 
 private:
     Ui::MainWindow* ui;
