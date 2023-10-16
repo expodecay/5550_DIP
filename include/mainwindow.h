@@ -23,6 +23,8 @@ private slots:
     void SmoothingFilterQT();
     void MedianFilterQT();
     void LaplacianFilterQT();
+    void HighBoostFilterQT();
+    void BitPlaneRemovalQT();
 
 private:
     Ui::MainWindow* ui;

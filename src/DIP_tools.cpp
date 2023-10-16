@@ -10,6 +10,7 @@
 #include <opencv2/core/utility.hpp>
 #include "opencv2/imgcodecs.hpp"
 #include "opencv2/highgui.hpp"
+#include <opencv2/core/types_c.h>
 
 #include "opencv2/imgproc.hpp"
 
@@ -248,54 +249,144 @@ void LaplacianFilter()
 	std::cout << "LaplacianFilter()" << std::endl;
 	full_img = cv::imread(cv::samples::findFile(image_path), cv::IMREAD_GRAYSCALE);
 	int fullSize[n_Dimensions] = { full_img.rows, full_img.cols };
-	cv::Mat laplacian_filter_image = cv::Mat::zeros(n_Dimensions, fullSize, CV_8U);
+	cv::Mat laplacian_filter_image = cv::Mat::zeros(n_Dimensions, fullSize, CV_32F);
 	//cv::Mat workspace(n_Dimensions, fullSize, CV_8U, 255);
 	cv::Mat workspace = cv::Mat::zeros(n_Dimensions, fullSize, CV_8U);
+
+
 	// Image copy
 	for (int i = 0; i < full_img.rows; i++)
 	{
 		for (int j = 0; j < full_img.cols; j++)
 		{
 			//uint8_t val = myData[i * _stride + j];
-			laplacian_filter_image.at<uint8_t>(i, j) = full_img.at<uint8_t>(i, j);
+			laplacian_filter_image.at<float>(i, j) = static_cast<float>(full_img.at<uint8_t>(i, j));
 		}
 	}
 
-
 	int kernelSize[n_Dimensions] = { std::clamp(3, 3, full_img.cols), std::clamp(3, 3, full_img.rows) };
-	cv::Mat kernel = cv::Mat::zeros(n_Dimensions, kernelSize, CV_8S);
-	kernel.at<uint8_t>(0, 0) = 0;
-	kernel.at<uint8_t>(0, 1) = 1;
-	kernel.at<uint8_t>(0, 2) = 0;
-	kernel.at<uint8_t>(1, 0) = 1;
-	kernel.at<uint8_t>(1, 1) = -4;
-	kernel.at<uint8_t>(1, 2) = 1;
-	kernel.at<uint8_t>(2, 0) = 0;
-	kernel.at<uint8_t>(2, 1) = 1;
-	kernel.at<uint8_t>(2, 2) = 0;
+	cv::Mat kernel = cv::Mat::zeros(n_Dimensions, kernelSize, CV_32F);
+	kernel.at<float>(0, 0) = 0;
+	kernel.at<float>(0, 1) = 1;
+	kernel.at<float>(0, 2) = 0;
+	kernel.at<float>(1, 0) = 1;
+	kernel.at<float>(1, 1) = -4;
+	kernel.at<float>(1, 2) = 1;
+	kernel.at<float>(2, 0) = 0;
+	kernel.at<float>(2, 1) = 1;
+	kernel.at<float>(2, 2) = 0;
 
 	for (int i = kernelSize[1]; i < full_img.rows - kernelSize[1]; i++) {
 		for (int j = kernelSize[0]; j < full_img.cols - kernelSize[0]; j++) {
-			double convolved_value = 0.0;
+			float convolved_value = 0.0;
 			for (int k = -(kernelSize[1] / 2); k <= (kernelSize[1] / 2); k++) {
 				for (int l = -(kernelSize[1] / 2); l <= (kernelSize[1] / 2); l++) {
 					int kernel_x_index = k + kernelSize[1] / 2;
 					int kernel_y_index = l + kernelSize[1] / 2;
-					float current_kernel_value = kernel.at<int8_t>(kernel_x_index, kernel_y_index);
+					float current_kernel_value = kernel.at<float>(kernel_x_index, kernel_y_index);
 					float current_image_value = full_img.at<uint8_t>(kernel_x_index + i, kernel_y_index + j);
 					float new_value = current_image_value * current_kernel_value;
 					
 					convolved_value += new_value;
 				}
 			}
-			//workspace.at<uint8_t>(i, j) = static_cast<uint8_t>(std::clamp(static_cast<float>(full_img.at<uint8_t>(i, j)) + convolved_value, 0.0, 255.0));
-			workspace.at<uint8_t>(i, j) = static_cast<uint8_t>(std::clamp(convolved_value +128, 0.0, 255.0));
+			workspace.at<uint8_t>(i, j) = static_cast<uint8_t>(std::clamp(static_cast<float>(full_img.at<uint8_t>(i, j)) + convolved_value, 0.0f, 255.0f));
+			//workspace.at<uint8_t>(i, j) = static_cast<uint8_t>(std::clamp(convolved_value, 0.0f, 255.0f));
 		}
 	}
 	laplacian_filter_image = full_img - workspace;
 	cv::imwrite("C:/Users/rickr/Documents/Repos/5550_DIP/output/laplacian_filter_image.png", laplacian_filter_image);
 }
 
+void HighBoostFilter()
+{
+	std::cout << "HighBoostFilter()" << std::endl;
+	full_img = cv::imread(cv::samples::findFile(image_path), cv::IMREAD_GRAYSCALE);
+	int fullSize[n_Dimensions] = { full_img.rows, full_img.cols };
+	cv::Mat high_boost_filter_image = cv::Mat::zeros(n_Dimensions, fullSize, CV_32F);
+
+	cv::Mat full_copy = cv::Mat::zeros(n_Dimensions, fullSize, CV_32F);
+	cv::Mat difference_image = cv::Mat::zeros(n_Dimensions, fullSize, CV_32F);
+	cv::Mat smoothing_filter_image = cv::Mat::zeros(n_Dimensions, fullSize, CV_32F);
+	// Image copy
+	for (int i = 0; i < full_img.rows; i++)
+	{
+		for (int j = 0; j < full_img.cols; j++)
+		{
+			//uint8_t val = myData[i * _stride + j];
+			smoothing_filter_image.at<float>(i, j) = static_cast<float>(full_img.at<uint8_t>(i, j));
+			full_copy.at<float>(i, j) = static_cast<float>(full_img.at<uint8_t>(i, j));
+		}
+	}
+	int kernelSize[n_Dimensions] = { std::clamp(3, 3, full_img.cols), std::clamp(3, 3, full_img.rows) };
+	cv::Mat kernel = cv::Mat::ones(n_Dimensions, kernelSize, CV_8U);
+	for (int i = kernelSize[1]; i < full_img.rows - kernelSize[1]; i++) {
+		for (int j = kernelSize[0]; j < full_img.cols - kernelSize[0]; j++) {
+			float average = 0;
+			for (int k = -(kernelSize[1] / 2); k <= (kernelSize[1] / 2); k++) {
+				for (int l = -(kernelSize[1] / 2); l <= (kernelSize[1] / 2); l++) {
+					average += static_cast<float>(full_img.at<uint8_t>(k + i, l + j)) * static_cast<float>(kernel.at<uint8_t>(k + kernelSize[1] / 2, l + kernelSize[1] / 2));
+				}
+			}
+			average /= 9;
+
+			smoothing_filter_image.at<float>(i, j) = average;
+
+		}
+	}
+	cv::Mat mask = cv::Mat::zeros(n_Dimensions, fullSize, CV_32F);
+	for (int i = 0; i < full_img.rows; i++)
+	{
+		for (int j = 0; j < full_img.cols; j++)
+		{
+			//uint8_t val = myData[i * _stride + j];
+			mask.at<float>(i, j) = static_cast<float>(full_img.at<uint8_t>(i, j));
+		}
+	}
+	difference_image = mask - smoothing_filter_image;
+	high_boost_filter_image = full_copy + difference_image;
+	cv::imwrite("C:/Users/rickr/Documents/Repos/5550_DIP/output/smoothing_filter.png", smoothing_filter_image);
+}
+
+void BitPlaneRemoval()
+{
+	std::cout << "BitPlaneRemoval()" << std::endl;
+	full_img = cv::imread(cv::samples::findFile(image_path), cv::IMREAD_GRAYSCALE);
+	int fullSize[n_Dimensions] = { full_img.rows, full_img.cols };
+	cv::Mat zero = cv::Mat::zeros(n_Dimensions, fullSize, CV_8U);
+	cv::Mat one = cv::Mat::zeros(n_Dimensions, fullSize, CV_8U);
+	cv::Mat two = cv::Mat::zeros(n_Dimensions, fullSize, CV_8U);
+	cv::Mat three = cv::Mat::zeros(n_Dimensions, fullSize, CV_8U);
+	cv::Mat four = cv::Mat::zeros(n_Dimensions, fullSize, CV_8U);
+	cv::Mat five = cv::Mat::zeros(n_Dimensions, fullSize, CV_8U);
+	cv::Mat six = cv::Mat::zeros(n_Dimensions, fullSize, CV_8U);
+	cv::Mat seven = cv::Mat::zeros(n_Dimensions, fullSize, CV_8U);
+
+	std::map<int, cv::Mat> bit_planes{ {0, zero}, {1, one}, {2, two}, {3, three}, {4, four},
+		{5, five}, {6, six}, {7, seven}};
+
+	
+	for (int i=0; i < 8; ++i) {
+		cv::Mat out(((full_img / (1 << i)) & 1) * 255);
+		bit_planes[i] = out;
+	}
+	cv::Mat out(((full_img / (1 << 7)) & 1) );
+	cv::Mat zero_plane = bit_planes[0];
+	cv::Mat one_plane = bit_planes[1];
+	cv::Mat two_plane = bit_planes[2];
+	cv::Mat three_plane = bit_planes[3];
+	cv::Mat four_plane = bit_planes[4];
+	cv::Mat five_plane = bit_planes[5];
+	cv::Mat six_plane = bit_planes[6];
+	cv::Mat seven_plane = bit_planes[7];
+
+	//cv::Mat total_image = one_plane | two_plane | three_plane | four_plane | five_plane | six_plane | seven_plane;
+	cv::Mat total_image = six_plane | seven_plane;
+
+	cv::Mat src, bp1;
+	//bp1 = cv::cv::Mat(n_Dimensions, fullSize, BitDepth.U8, 1);
+	cout << "test";
+}
 //int main(int argc, char* argv[])
 //{
 //	 

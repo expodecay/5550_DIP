@@ -7,3 +7,5 @@ void LocalHistogramEqualization();
 void SmoothingFilter();
 void MedianFilter();
 void LaplacianFilter();
+void HighBoostFilter();
+void BitPlaneRemoval();

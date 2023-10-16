@@ -25,6 +25,8 @@ MainWindow::MainWindow(QWidget* parent) :
     connect(ui->Smoothing_Filter, SIGNAL(clicked()), SLOT(SmoothingFilterQT()));
     connect(ui->Median_Filter, SIGNAL(clicked()), SLOT(MedianFilterQT()));
     connect(ui->Laplacian_Filter, SIGNAL(clicked()), SLOT(LaplacianFilterQT()));
+    connect(ui->High_Boost, SIGNAL(clicked()), SLOT(HighBoostFilterQT()));
+    connect(ui->Bit_Plane_Removal, SIGNAL(clicked()), SLOT(BitPlaneRemovalQT()));
 }
 
 
@@ -73,4 +75,16 @@ void MainWindow::LaplacianFilterQT()
 {
     LaplacianFilter();
     showPhoto("C:/Users/rickr/Documents/Repos/5550_DIP/output/laplacian_filter_image.png");
+}
+
+void MainWindow::HighBoostFilterQT()
+{
+    HighBoostFilter();
+    showPhoto("C:/Users/rickr/Documents/Repos/5550_DIP/output/high_boost_filter_image.png");
+}
+
+void MainWindow::BitPlaneRemovalQT()
+{
+    BitPlaneRemoval();
+    showPhoto("C:/Users/rickr/Documents/Repos/5550_DIP/output/bit_plane_removal.png");
 }
