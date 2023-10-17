@@ -113,11 +113,6 @@ void LocalHistogramEqualization()
 		}
 	}
 
-	
-
-	/*cv::Ptr<cv::CLAHE> clahe = cv::createCLAHE(2.0,cv::Size(9,9));
-	clahe->apply(full_img, local_histogram_equalization_image);*/
-	
 	int kernelSize[n_Dimensions] = { std::clamp(9, 3, full_img.cols), std::clamp(9, 3, full_img.rows) }; //min 3x3nmax 512x512, going over & under clams to min / max
 
 	int sub_offset_x = full_img.cols - (full_img.cols / kernelSize[0]) * kernelSize[0];
@@ -125,9 +120,7 @@ void LocalHistogramEqualization()
 
 	cv::Mat kernel = cv::Mat::zeros(n_Dimensions, kernelSize, CV_8U);
 	//pixelFrequency
-	//for (int i = 0; i < full_img.rows-sub_offset_y; i+= kernelSize[0]) {
 	for (int i = kernelSize[1]; i < full_img.rows- kernelSize[1]; i++) {
-		//for (int j = 0; j < full_img.cols-sub_offset_x; j+= kernelSize[1]) { // for every pixel in image, hist eq over kernel
 		for (int j = kernelSize[0]; j < full_img.cols- kernelSize[0]; j++) { // for every pixel in image, hist eq over kernel
 			int intensity[256] = { 0 };
 			double probability[256] = { 0 };
@@ -152,20 +145,9 @@ void LocalHistogramEqualization()
 					
 				}
 			}
-			
-			//for (int k = 0; k < kernel.rows; k++)
-			//{
-			//	for (int l = 0; l < kernel.cols; l++)
-			//	{
-			//		//int color = cumulativeProbability[int(img.at<uchar>(i, j))];
-			//		local_histogram_equalization_image.at<uint8_t>(k + i, l + j) = cumulativeProbability[int(full_img.at<uchar>(k + i, l + j))];
-			//	}
-			//}
-
 			local_histogram_equalization_image.at<uint8_t>(i, j) = cumulativeProbability[int(full_img.at<uchar>(i, j))];
 		}
 	}
-	std::cout << "here" << endl;
 	cv::imwrite("C:/Users/rickr/Documents/Repos/5550_DIP/output/local_histogram_equalization_image.png", local_histogram_equalization_image);
 
 }
@@ -205,7 +187,6 @@ void SmoothingFilter()
 		}
 	}
 	cv::imwrite("C:/Users/rickr/Documents/Repos/5550_DIP/output/smoothing_filter.png", smoothing_filter_image);
-
 }
 
 void MedianFilter()
@@ -295,7 +276,7 @@ void LaplacianFilter()
 		}
 	}
 	laplacian_filter_image = full_img - workspace;
-	cv::imwrite("C:/Users/rickr/Documents/Repos/5550_DIP/output/laplacian_filter_image.png", laplacian_filter_image);
+	cv::imwrite("C:/Users/rickr/Documents/Repos/5550_DIP/output/laplacian_filter_image.png", workspace);
 }
 
 void HighBoostFilter()
@@ -344,8 +325,8 @@ void HighBoostFilter()
 		}
 	}
 	difference_image = mask - smoothing_filter_image;
-	high_boost_filter_image = full_copy + difference_image;
-	cv::imwrite("C:/Users/rickr/Documents/Repos/5550_DIP/output/smoothing_filter.png", smoothing_filter_image);
+	high_boost_filter_image = full_copy + 4.5*difference_image;
+	cv::imwrite("C:/Users/rickr/Documents/Repos/5550_DIP/output/high_boost_filter_image.png", high_boost_filter_image);
 }
 
 void BitPlaneRemoval()
@@ -381,10 +362,8 @@ void BitPlaneRemoval()
 	cv::Mat seven_plane = bit_planes[7];
 
 	//cv::Mat total_image = one_plane | two_plane | three_plane | four_plane | five_plane | six_plane | seven_plane;
-	cv::Mat total_image = six_plane | seven_plane;
-
-	cv::Mat src, bp1;
-	//bp1 = cv::cv::Mat(n_Dimensions, fullSize, BitDepth.U8, 1);
+	//cv::Mat total_image = six_plane | seven_plane;
+	cv::Mat total_image = 2 * (2 * (2 * seven_plane + six_plane) + five_plane);
 	cout << "test";
 }
 //int main(int argc, char* argv[])

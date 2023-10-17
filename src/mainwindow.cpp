@@ -14,10 +14,10 @@ MainWindow::MainWindow(QWidget* parent) :
     ui->setupUi(this);
 
 
-    QPixmap pix2("C:/Users/rickr/Documents/Repos/5550_DIP/images/lenaTest.png");
+    QPixmap pix2("C:/Users/rickr/Documents/Repos/5550_DIP/images/lena.png");
     ui->label_pic2->setPixmap(pix2);
 
-    QPushButton* button = new QPushButton("&Download", this);
+   // QPushButton* button = new QPushButton("&Download", this);
 
     connect(ui->Nearest_Neighbor_Interpolation, SIGNAL(clicked()), SLOT(NearestNeighborInterpolationQT()));
     connect(ui->Histogram_Equalization, SIGNAL(clicked()), SLOT(GlobalHistogramEqualizationQT()));
