@@ -27,6 +27,7 @@ private slots:
     void BitPlaneRemovalQT();
     void ArithmeticMeanQT();
     void GeometricMeanQT();
+    void HarmonicMeanQT();
 
 private:
     Ui::MainWindow* ui;

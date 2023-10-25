@@ -11,3 +11,4 @@ void HighBoostFilter();
 void BitPlaneRemoval();
 void ArithmeticMean();
 void GeometricMean();
+void HarmonicMean();

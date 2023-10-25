@@ -32,6 +32,8 @@ MainWindow::MainWindow(QWidget* parent) :
     connect(ui->Bit_Plane_Removal, SIGNAL(clicked()), SLOT(BitPlaneRemovalQT()));
     connect(ui->Arithmetic_Mean, SIGNAL(clicked()), SLOT(ArithmeticMeanQT()));
     connect(ui->Geometric_Mean, SIGNAL(clicked()), SLOT(GeometricMeanQT()));
+    connect(ui->Harmonic_Mean, SIGNAL(clicked()), SLOT(HarmonicMeanQT()));
+
 }
 
 
@@ -104,4 +106,10 @@ void MainWindow::GeometricMeanQT()
 {
     GeometricMean();
     showPhoto("C:/Users/rickr/Documents/Repos/5550_DIP/output/geometric_mean_image.png");
+}
+
+void MainWindow::HarmonicMeanQT()
+{
+    HarmonicMean();
+    showPhoto("C:/Users/rickr/Documents/Repos/5550_DIP/output/harmonic_mean_image.png");
 }
