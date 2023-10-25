@@ -103,6 +103,5 @@ void MainWindow::ArithmeticMeanQT()
 void MainWindow::GeometricMeanQT()
 {
     GeometricMean();
-    std::cout << "Load photo in mainwindow.cpp" << std::endl;
-   // showPhoto("C:/Users/rickr/Documents/Repos/5550_DIP/output/arithmetic_mean_image.png");
+    showPhoto("C:/Users/rickr/Documents/Repos/5550_DIP/output/geometric_mean_image.png");
 }
