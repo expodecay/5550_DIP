@@ -27,6 +27,7 @@ MainWindow::MainWindow(QWidget* parent) :
     connect(ui->Laplacian_Filter, SIGNAL(clicked()), SLOT(LaplacianFilterQT()));
     connect(ui->High_Boost, SIGNAL(clicked()), SLOT(HighBoostFilterQT()));
     connect(ui->Bit_Plane_Removal, SIGNAL(clicked()), SLOT(BitPlaneRemovalQT()));
+    connect(ui->Arithmetic_Mean, SIGNAL(clicked()), SLOT(ArithmeticMeanQT()));
 }
 
 
@@ -87,4 +88,10 @@ void MainWindow::BitPlaneRemovalQT()
 {
     BitPlaneRemoval();
     showPhoto("C:/Users/rickr/Documents/Repos/5550_DIP/output/bit_plane_removal.png");
+}
+
+void MainWindow::ArithmeticMeanQT()
+{
+    ArithmeticMean();
+    showPhoto("C:/Users/rickr/Documents/Repos/5550_DIP/output/arithmetic_mean_image.png");
 }

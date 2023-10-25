@@ -25,6 +25,7 @@ private slots:
     void LaplacianFilterQT();
     void HighBoostFilterQT();
     void BitPlaneRemovalQT();
+    void ArithmeticMeanQT();
 
 private:
     Ui::MainWindow* ui;

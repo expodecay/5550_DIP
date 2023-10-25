@@ -15,43 +15,45 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0">
-     <widget class="QLabel" name="label_pic2">
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
     <item row="4" column="0" alignment="Qt::AlignLeft">
-     <widget class="QPushButton" name="Histogram_Equalization">
-      <property name="font">
-       <font>
-        <pointsize>9</pointsize>
-       </font>
-      </property>
+     <widget class="QPushButton" name="Nearest_Neighbor_Interpolation">
       <property name="text">
-       <string>Histogram Equalization</string>
+       <string>Nearest Neighbor Interpolation</string>
       </property>
      </widget>
     </item>
-    <item row="7" column="0" alignment="Qt::AlignLeft">
+    <item row="8" column="0" alignment="Qt::AlignLeft">
      <widget class="QPushButton" name="Median_Filter">
       <property name="text">
        <string>Median Filter</string>
       </property>
      </widget>
     </item>
-    <item row="8" column="0" alignment="Qt::AlignLeft">
-     <widget class="QPushButton" name="Laplacian_Filter">
+    <item row="11" column="0" alignment="Qt::AlignLeft">
+     <widget class="QPushButton" name="Bit_Plane_Removal">
       <property name="text">
-       <string>Laplacian Filter</string>
+       <string>Bit Plane Removal</string>
       </property>
      </widget>
     </item>
-    <item row="5" column="0" alignment="Qt::AlignLeft">
-     <widget class="QPushButton" name="Local_Histogram">
+    <item row="7" column="0" alignment="Qt::AlignLeft">
+     <widget class="QPushButton" name="Smoothing_Filter">
       <property name="text">
-       <string>Local Histogram</string>
+       <string>Smoothing Filter</string>
+      </property>
+     </widget>
+    </item>
+    <item row="10" column="0" alignment="Qt::AlignLeft">
+     <widget class="QPushButton" name="High_Boost">
+      <property name="text">
+       <string>High Boost Filter</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="QLabel" name="label_pic2">
+      <property name="text">
+       <string/>
       </property>
      </widget>
     </item>
@@ -75,30 +77,35 @@
      </widget>
     </item>
     <item row="6" column="0" alignment="Qt::AlignLeft">
-     <widget class="QPushButton" name="Smoothing_Filter">
+     <widget class="QPushButton" name="Local_Histogram">
       <property name="text">
-       <string>Smoothing Filter</string>
+       <string>Local Histogram</string>
       </property>
      </widget>
     </item>
     <item row="9" column="0" alignment="Qt::AlignLeft">
-     <widget class="QPushButton" name="High_Boost">
+     <widget class="QPushButton" name="Laplacian_Filter">
       <property name="text">
-       <string>High Boost Filter</string>
+       <string>Laplacian Filter</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="0" alignment="Qt::AlignLeft">
+     <widget class="QPushButton" name="Histogram_Equalization">
+      <property name="font">
+       <font>
+        <pointsize>9</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Histogram Equalization</string>
       </property>
      </widget>
     </item>
     <item row="3" column="0" alignment="Qt::AlignLeft">
-     <widget class="QPushButton" name="Nearest_Neighbor_Interpolation">
+     <widget class="QPushButton" name="Arithmetic_Mean">
       <property name="text">
-       <string>Nearest Neighbor Interpolation</string>
-      </property>
-     </widget>
-    </item>
-    <item row="10" column="0" alignment="Qt::AlignLeft">
-     <widget class="QPushButton" name="Bit_Plane_Removal">
-      <property name="text">
-       <string>Bit Plane Removal</string>
+       <string>ArithmeticMean</string>
       </property>
      </widget>
     </item>

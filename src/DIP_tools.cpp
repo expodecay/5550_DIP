@@ -366,6 +366,42 @@ void BitPlaneRemoval()
 	cv::Mat total_image = 2 * (2 * (2 * seven_plane + six_plane) + five_plane);
 	cout << "test";
 }
+
+void ArithmeticMean() {
+	std::cout << "ArithmeticMean()" << std::endl;
+	full_img = cv::imread(cv::samples::findFile(image_path), cv::IMREAD_GRAYSCALE);
+	int fullSize[n_Dimensions] = { full_img.rows, full_img.cols };
+	cv::Mat arithmetic_mean_image = cv::Mat::zeros(n_Dimensions, fullSize, CV_8U);
+	// Image copy
+	for (int i = 0; i < full_img.rows; i++)
+	{
+		for (int j = 0; j < full_img.cols; j++)
+		{
+			//uint8_t val = myData[i * _stride + j];
+			arithmetic_mean_image.at<uint8_t>(i, j) = full_img.at<uint8_t>(i, j);
+		}
+	}
+	int kernelSize[n_Dimensions] = { std::clamp(3, 3, full_img.cols), std::clamp(3, 3, full_img.rows) };
+	int sub_offset_x = full_img.cols - (full_img.cols / kernelSize[0]) * kernelSize[0];
+	int sub_offset_y = full_img.rows - (full_img.rows / kernelSize[1]) * kernelSize[1];
+
+	cv::Mat kernel = cv::Mat::ones(n_Dimensions, kernelSize, CV_8U);
+	for (int i = kernelSize[1]; i < full_img.rows - kernelSize[1]; i++) {
+		for (int j = kernelSize[0]; j < full_img.cols - kernelSize[0]; j++) {
+			int mean = 0;
+			for (int k = -(kernelSize[1] / 2); k <= (kernelSize[1] / 2); k++) {
+				for (int l = -(kernelSize[1] / 2); l <= (kernelSize[1] / 2); l++) {
+					mean += full_img.at<uint8_t>(k + i, l + j) * kernel.at<uint8_t>(k + kernelSize[1] / 2, l + kernelSize[1] / 2);
+				}
+			}
+			mean /= kernelSize[0]*kernelSize[1];
+
+			arithmetic_mean_image.at<uint8_t>(i, j) = mean;
+
+		}
+	}
+	cv::imwrite("C:/Users/rickr/Documents/Repos/5550_DIP/output/arithmetic_mean_image.png", arithmetic_mean_image);
+}
 //int main(int argc, char* argv[])
 //{
 //	 
