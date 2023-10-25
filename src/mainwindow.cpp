@@ -14,8 +14,11 @@ MainWindow::MainWindow(QWidget* parent) :
     ui->setupUi(this);
 
 
-    QPixmap pix2("C:/Users/rickr/Documents/Repos/5550_DIP/images/lena.png");
+    //QPixmap pix2("C:/Users/rickr/Documents/Repos/5550_DIP/output/arithmetic_mean_image.png");
+    QPixmap pix2("C:/Users/rickr/Documents/Repos/5550_DIP/images/gaussian.png");
+   
     ui->label_pic2->setPixmap(pix2);
+    showPhoto("C:/Users/rickr/Documents/Repos/5550_DIP/output/nearest_neighbor_image.png");
 
    // QPushButton* button = new QPushButton("&Download", this);
 
@@ -28,6 +31,7 @@ MainWindow::MainWindow(QWidget* parent) :
     connect(ui->High_Boost, SIGNAL(clicked()), SLOT(HighBoostFilterQT()));
     connect(ui->Bit_Plane_Removal, SIGNAL(clicked()), SLOT(BitPlaneRemovalQT()));
     connect(ui->Arithmetic_Mean, SIGNAL(clicked()), SLOT(ArithmeticMeanQT()));
+    connect(ui->Geometric_Mean, SIGNAL(clicked()), SLOT(GeometricMeanQT()));
 }
 
 
@@ -94,4 +98,11 @@ void MainWindow::ArithmeticMeanQT()
 {
     ArithmeticMean();
     showPhoto("C:/Users/rickr/Documents/Repos/5550_DIP/output/arithmetic_mean_image.png");
+}
+
+void MainWindow::GeometricMeanQT()
+{
+    GeometricMean();
+    std::cout << "Load photo in mainwindow.cpp" << std::endl;
+   // showPhoto("C:/Users/rickr/Documents/Repos/5550_DIP/output/arithmetic_mean_image.png");
 }

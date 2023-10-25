@@ -26,6 +26,7 @@ private slots:
     void HighBoostFilterQT();
     void BitPlaneRemovalQT();
     void ArithmeticMeanQT();
+    void GeometricMeanQT();
 
 private:
     Ui::MainWindow* ui;

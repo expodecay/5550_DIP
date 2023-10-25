@@ -20,7 +20,8 @@
 
 using namespace std;
 
-string image_path = "C:/Users/rickr/Documents/Repos/5550_DIP/images/lena.png";
+//string image_path = "C:/Users/rickr/Documents/Repos/5550_DIP/images/lena.png";
+string image_path = "C:/Users/rickr/Documents/Repos/5550_DIP/images/gaussian.png";
 cv::Mat full_img;
 
 const int n_Channel = 1;
@@ -401,6 +402,11 @@ void ArithmeticMean() {
 		}
 	}
 	cv::imwrite("C:/Users/rickr/Documents/Repos/5550_DIP/output/arithmetic_mean_image.png", arithmetic_mean_image);
+}
+
+void GeometricMean()
+{
+	cout << "hiiiiiii" << endl;
 }
 //int main(int argc, char* argv[])
 //{

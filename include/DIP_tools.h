@@ -10,3 +10,4 @@ void LaplacianFilter();
 void HighBoostFilter();
 void BitPlaneRemoval();
 void ArithmeticMean();
+void GeometricMean();
