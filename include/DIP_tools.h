@@ -14,3 +14,4 @@ void GeometricMean();
 void HarmonicMean();
 void ContraHarmonicMean();
 void Max();
+void Min();

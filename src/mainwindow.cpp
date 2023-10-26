@@ -35,6 +35,7 @@ MainWindow::MainWindow(QWidget* parent) :
     connect(ui->Harmonic_Mean, SIGNAL(clicked()), SLOT(HarmonicMeanQT()));
     connect(ui->Contra_Harmonic_Mean, SIGNAL(clicked()), SLOT(ContraHarmonicMeanQT()));
     connect(ui->Max, SIGNAL(clicked()), SLOT(MaxQT()));
+    connect(ui->Min, SIGNAL(clicked()), SLOT(MinQT()));
 }
 
 
@@ -125,4 +126,10 @@ void MainWindow::MaxQT()
 {
     Max();
     showPhoto("C:/Users/rickr/Documents/Repos/5550_DIP/output/max_image.png");
+}
+
+void MainWindow::MinQT()
+{
+    Min();
+    showPhoto("C:/Users/rickr/Documents/Repos/5550_DIP/output/min_image.png");
 }

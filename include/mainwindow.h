@@ -30,6 +30,7 @@ private slots:
     void HarmonicMeanQT();
     void ContraHarmonicMeanQT();
     void MaxQT();
+    void MinQT();
 
 private:
     Ui::MainWindow* ui;
