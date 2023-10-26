@@ -36,6 +36,7 @@ MainWindow::MainWindow(QWidget* parent) :
     connect(ui->Contra_Harmonic_Mean, SIGNAL(clicked()), SLOT(ContraHarmonicMeanQT()));
     connect(ui->Max, SIGNAL(clicked()), SLOT(MaxQT()));
     connect(ui->Min, SIGNAL(clicked()), SLOT(MinQT()));
+    connect(ui->Midpoint, SIGNAL(clicked()), SLOT(MidpointQT()));
 }
 
 
@@ -132,4 +133,10 @@ void MainWindow::MinQT()
 {
     Min();
     showPhoto("C:/Users/rickr/Documents/Repos/5550_DIP/output/min_image.png");
+}
+
+void MainWindow::MidpointQT()
+{
+    Midpoint();
+    showPhoto("C:/Users/rickr/Documents/Repos/5550_DIP/output/midpoint_image.png");
 }

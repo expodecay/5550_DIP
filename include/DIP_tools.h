@@ -15,3 +15,4 @@ void HarmonicMean();
 void ContraHarmonicMean();
 void Max();
 void Min();
+void Midpoint();
