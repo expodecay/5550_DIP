@@ -34,7 +34,7 @@ MainWindow::MainWindow(QWidget* parent) :
     connect(ui->Geometric_Mean, SIGNAL(clicked()), SLOT(GeometricMeanQT()));
     connect(ui->Harmonic_Mean, SIGNAL(clicked()), SLOT(HarmonicMeanQT()));
     connect(ui->Contra_Harmonic_Mean, SIGNAL(clicked()), SLOT(ContraHarmonicMeanQT()));
-
+    connect(ui->Max, SIGNAL(clicked()), SLOT(MaxQT()));
 }
 
 
@@ -114,8 +114,15 @@ void MainWindow::HarmonicMeanQT()
     HarmonicMean();
     showPhoto("C:/Users/rickr/Documents/Repos/5550_DIP/output/harmonic_mean_image.png");
 }
+
 void MainWindow::ContraHarmonicMeanQT()
 {
     ContraHarmonicMean();
     showPhoto("C:/Users/rickr/Documents/Repos/5550_DIP/output/contra_harmonic_mean_image.png");
+}
+
+void MainWindow::MaxQT()
+{
+    Max();
+    showPhoto("C:/Users/rickr/Documents/Repos/5550_DIP/output/max_image.png");
 }

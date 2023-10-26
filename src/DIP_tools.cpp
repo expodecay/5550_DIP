@@ -504,7 +504,7 @@ void ContraHarmonicMean()
 			int Q = 0;
 			for (int k = -(kernelSize[1] / 2); k <= (kernelSize[1] / 2); k++) {
 				for (int l = -(kernelSize[1] / 2); l <= (kernelSize[1] / 2); l++) {
-					double current_value = full_img.at<uint8_t>(k + i, l + j) ;
+					double current_value = full_img.at<uint8_t>(k + i, l + j);
 					numerator +=  pow(static_cast<double>(full_img.at<uint8_t>(k + i, l + j)) * kernel.at<double>(k + kernelSize[1] / 2, l + kernelSize[1] / 2), Q+1);
 					denominator += pow(static_cast<double>(full_img.at<uint8_t>(k + i, l + j)) * kernel.at<double>(k + kernelSize[1] / 2, l + kernelSize[1] / 2), Q);
 				}
@@ -514,7 +514,44 @@ void ContraHarmonicMean()
 			contra_harmonic_mean_image.at<double>(i, j) = contraharmean;
 		}
 	}
-	cv::imwrite("C:/Users/rickr/Documents/Repos/5550_DIP/output/harmonic_mean_image.png", contra_harmonic_mean_image);
+	cv::imwrite("C:/Users/rickr/Documents/Repos/5550_DIP/output/contra_harmonic_mean_image.png", contra_harmonic_mean_image);
+}
+
+void Max()
+{
+	std::cout << "Max()" << std::endl;
+	full_img = cv::imread(cv::samples::findFile(image_path), cv::IMREAD_GRAYSCALE);
+	int fullSize[n_Dimensions] = { full_img.rows, full_img.cols };
+	cv::Mat max_image = cv::Mat::zeros(n_Dimensions, fullSize, CV_64FC1);
+	// Image copy
+	for (int i = 0; i < full_img.rows; i++)
+	{
+		for (int j = 0; j < full_img.cols; j++)
+		{
+			//uint8_t val = myData[i * _stride + j];
+			max_image.at<double>(i, j) = static_cast<double>(full_img.at<uint8_t>(i, j));
+		}
+	}
+	int kernelSize[n_Dimensions] = { std::clamp(3, 3, full_img.cols), std::clamp(3, 3, full_img.rows) };
+
+	cv::Mat kernel = cv::Mat::ones(n_Dimensions, kernelSize, CV_64FC1);
+	for (int i = kernelSize[1]; i < full_img.rows - kernelSize[1]; i++) {
+		for (int j = kernelSize[0]; j < full_img.cols - kernelSize[0]; j++) {
+			double max = 0;
+			std::vector<double> img_subset;
+			for (int k = -(kernelSize[1] / 2); k <= (kernelSize[1] / 2); k++) {
+				for (int l = -(kernelSize[1] / 2); l <= (kernelSize[1] / 2); l++) {
+					double current_value = full_img.at<uint8_t>(k + i, l + j);
+					img_subset.push_back(current_value);
+				}
+			}
+			std::sort(img_subset.begin(), img_subset.end());
+			max = img_subset[8];
+			max_image.at<double>(i, j) = max;
+			cout << "hiiiiii" << endl;
+		}
+	}
+	cv::imwrite("C:/Users/rickr/Documents/Repos/5550_DIP/output/max_image.png", max_image);
 }
 //int main(int argc, char* argv[])
 //{
