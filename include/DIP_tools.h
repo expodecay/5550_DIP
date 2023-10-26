@@ -12,3 +12,4 @@ void BitPlaneRemoval();
 void ArithmeticMean();
 void GeometricMean();
 void HarmonicMean();
+void ContraHarmonicMean();

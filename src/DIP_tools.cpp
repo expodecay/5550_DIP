@@ -444,7 +444,7 @@ void GeometricMean()
 
 void HarmonicMean()
 {
-	std::cout << "GeometricMean()" << std::endl;
+	std::cout << "HarmonicMean()" << std::endl;
 	full_img = cv::imread(cv::samples::findFile(image_path), cv::IMREAD_GRAYSCALE);
 	int fullSize[n_Dimensions] = { full_img.rows, full_img.cols };
 	cv::Mat harmonic_mean_image = cv::Mat::zeros(n_Dimensions, fullSize, CV_64FC1);
@@ -477,6 +477,11 @@ void HarmonicMean()
 		}
 	}
 	cv::imwrite("C:/Users/rickr/Documents/Repos/5550_DIP/output/harmonic_mean_image.png", harmonic_mean_image);
+}
+
+void ContraHarmonicMean()
+{
+
 }
 //int main(int argc, char* argv[])
 //{

@@ -28,6 +28,7 @@ private slots:
     void ArithmeticMeanQT();
     void GeometricMeanQT();
     void HarmonicMeanQT();
+    void ContraHarmonicMeanQT();
 
 private:
     Ui::MainWindow* ui;
