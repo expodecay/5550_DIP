@@ -31,21 +31,21 @@
       </property>
      </widget>
     </item>
-    <item row="16" column="0" alignment="Qt::AlignLeft">
+    <item row="17" column="0" alignment="Qt::AlignLeft">
      <widget class="QPushButton" name="High_Boost">
       <property name="text">
        <string>High Boost Filter</string>
       </property>
      </widget>
     </item>
-    <item row="14" column="0" alignment="Qt::AlignLeft">
+    <item row="15" column="0" alignment="Qt::AlignLeft">
      <widget class="QPushButton" name="Median_Filter">
       <property name="text">
        <string>Median Filter</string>
       </property>
      </widget>
     </item>
-    <item row="11" column="0" alignment="Qt::AlignLeft">
+    <item row="12" column="0" alignment="Qt::AlignLeft">
      <widget class="QPushButton" name="Histogram_Equalization">
       <property name="font">
        <font>
@@ -76,87 +76,94 @@
       </property>
      </widget>
     </item>
-    <item row="17" column="0" alignment="Qt::AlignLeft">
+    <item row="18" column="0" alignment="Qt::AlignLeft">
      <widget class="QPushButton" name="Bit_Plane_Removal">
       <property name="text">
        <string>Bit Plane Removal</string>
       </property>
      </widget>
     </item>
-    <item row="15" column="0" alignment="Qt::AlignLeft">
+    <item row="16" column="0" alignment="Qt::AlignLeft">
      <widget class="QPushButton" name="Laplacian_Filter">
       <property name="text">
        <string>Laplacian Filter</string>
       </property>
      </widget>
     </item>
-    <item row="4" column="0" alignment="Qt::AlignLeft">
+    <item row="5" column="0" alignment="Qt::AlignLeft">
      <widget class="QPushButton" name="Min">
       <property name="text">
        <string>Min</string>
       </property>
      </widget>
     </item>
-    <item row="8" column="0" alignment="Qt::AlignLeft">
+    <item row="9" column="0" alignment="Qt::AlignLeft">
      <widget class="QPushButton" name="Geometric_Mean">
       <property name="text">
        <string>Geometric Mean</string>
       </property>
      </widget>
     </item>
-    <item row="9" column="0" alignment="Qt::AlignLeft">
+    <item row="10" column="0" alignment="Qt::AlignLeft">
      <widget class="QPushButton" name="Arithmetic_Mean">
       <property name="text">
        <string>ArithmeticMean</string>
       </property>
      </widget>
     </item>
-    <item row="12" column="0" alignment="Qt::AlignLeft">
+    <item row="13" column="0" alignment="Qt::AlignLeft">
      <widget class="QPushButton" name="Local_Histogram">
       <property name="text">
        <string>Local Histogram</string>
       </property>
      </widget>
     </item>
-    <item row="5" column="0" alignment="Qt::AlignLeft">
+    <item row="6" column="0" alignment="Qt::AlignLeft">
      <widget class="QPushButton" name="Max">
       <property name="text">
        <string>Max</string>
       </property>
      </widget>
     </item>
-    <item row="10" column="0" alignment="Qt::AlignLeft">
+    <item row="11" column="0" alignment="Qt::AlignLeft">
      <widget class="QPushButton" name="Nearest_Neighbor_Interpolation">
       <property name="text">
        <string>Nearest Neighbor Interpolation</string>
       </property>
      </widget>
     </item>
-    <item row="13" column="0" alignment="Qt::AlignLeft">
+    <item row="14" column="0" alignment="Qt::AlignLeft">
      <widget class="QPushButton" name="Smoothing_Filter">
       <property name="text">
        <string>Smoothing Filter</string>
       </property>
      </widget>
     </item>
-    <item row="7" column="0" alignment="Qt::AlignLeft">
+    <item row="8" column="0" alignment="Qt::AlignLeft">
      <widget class="QPushButton" name="Harmonic_Mean">
       <property name="text">
        <string>Harmonic Mean</string>
       </property>
      </widget>
     </item>
-    <item row="6" column="0" alignment="Qt::AlignLeft">
+    <item row="7" column="0" alignment="Qt::AlignLeft">
      <widget class="QPushButton" name="Contra_Harmonic_Mean">
       <property name="text">
        <string>Contra Harmonic Mean</string>
       </property>
      </widget>
     </item>
-    <item row="3" column="0" alignment="Qt::AlignLeft">
+    <item row="4" column="0" alignment="Qt::AlignLeft">
      <widget class="QPushButton" name="Midpoint">
       <property name="text">
        <string>Midpoint</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="QPushButton" name="Alpha_Trimmed_Mean">
+      <property name="text">
+       <string>Alpha Trimmed Mean</string>
       </property>
      </widget>
     </item>

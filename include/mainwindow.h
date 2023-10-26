@@ -32,6 +32,7 @@ private slots:
     void MaxQT();
     void MinQT();
     void MidpointQT();
+    void AlphaTrimmedMeanQT();
 
 private:
     Ui::MainWindow* ui;

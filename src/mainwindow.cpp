@@ -37,6 +37,7 @@ MainWindow::MainWindow(QWidget* parent) :
     connect(ui->Max, SIGNAL(clicked()), SLOT(MaxQT()));
     connect(ui->Min, SIGNAL(clicked()), SLOT(MinQT()));
     connect(ui->Midpoint, SIGNAL(clicked()), SLOT(MidpointQT()));
+    connect(ui->Alpha_Trimmed_Mean, SIGNAL(clicked()), SLOT(AlphaTrimmedMeanQT()));
 }
 
 
@@ -139,4 +140,10 @@ void MainWindow::MidpointQT()
 {
     Midpoint();
     showPhoto("C:/Users/rickr/Documents/Repos/5550_DIP/output/midpoint_image.png");
+}
+
+void MainWindow::AlphaTrimmedMeanQT()
+{
+    AlphaTrimmedMean();
+    showPhoto("C:/Users/rickr/Documents/Repos/5550_DIP/output/alpha_trimmed_mean.png");
 }

@@ -16,3 +16,4 @@ void ContraHarmonicMean();
 void Max();
 void Min();
 void Midpoint();
+void AlphaTrimmedMean();
