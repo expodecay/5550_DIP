@@ -132,7 +132,7 @@
       </property>
      </widget>
     </item>
-    <item row="3" column="0">
+    <item row="3" column="0" alignment="Qt::AlignLeft">
      <widget class="QPushButton" name="Contra_Harmonic_Mean">
       <property name="text">
        <string>Contra Harmonic Mean</string>

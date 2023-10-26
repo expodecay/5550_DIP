@@ -116,6 +116,6 @@ void MainWindow::HarmonicMeanQT()
 }
 void MainWindow::ContraHarmonicMeanQT()
 {
-    HarmonicMean();
+    ContraHarmonicMean();
     showPhoto("C:/Users/rickr/Documents/Repos/5550_DIP/output/contra_harmonic_mean_image.png");
 }
