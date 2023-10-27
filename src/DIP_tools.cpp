@@ -23,6 +23,8 @@
 using namespace std;
 
 //string image_path = "C:/Users/rickr/Documents/Repos/5550_DIP/images/lena.png";
+
+//string image_path = "H:/My Drive/CPP/CS_5550_Digital_Image_Processing/Assignment_3/DIP3E_CH05_Original_Images/DIP3E_CH05_Original_Images/salt.tif";
 string image_path = "C:/Users/rickr/Documents/Repos/5550_DIP/images/gaussian.png";
 cv::Mat full_img;
 
@@ -460,7 +462,6 @@ void HarmonicMean()
 	}
 	int kernelSize[n_Dimensions] = { std::clamp(3, 3, full_img.cols), std::clamp(3, 3, full_img.rows) };
 
-
 	cv::Mat kernel = cv::Mat::ones(n_Dimensions, kernelSize, CV_64FC1);
 	for (int i = kernelSize[1]; i < full_img.rows - kernelSize[1]; i++) {
 		for (int j = kernelSize[0]; j < full_img.cols - kernelSize[0]; j++) {
@@ -502,7 +503,7 @@ void ContraHarmonicMean()
 		for (int j = kernelSize[0]; j < full_img.cols - kernelSize[0]; j++) {
 			double numerator = 0.0;
 			double denominator = 0.0;
-			int Q = 0;
+			int Q = 1.5;
 			for (int k = -(kernelSize[1] / 2); k <= (kernelSize[1] / 2); k++) {
 				for (int l = -(kernelSize[1] / 2); l <= (kernelSize[1] / 2); l++) {
 					double current_value = full_img.at<uint8_t>(k + i, l + j);
@@ -644,7 +645,7 @@ void AlphaTrimmedMean()
 	int kernelSize[n_Dimensions] = { std::clamp(3, 3, full_img.cols), std::clamp(3, 3, full_img.rows) };
 
 	cv::Mat kernel = cv::Mat::ones(n_Dimensions, kernelSize, CV_64FC1);
-	int d = 8;
+	int d = 4;
 	int alpha = d / 2;
 	for (int i = kernelSize[1]; i < full_img.rows - kernelSize[1]; i++) {
 		for (int j = kernelSize[0]; j < full_img.cols - kernelSize[0]; j++) {
@@ -657,17 +658,20 @@ void AlphaTrimmedMean()
 				}
 			}
 			std::sort(img_subset.begin(), img_subset.end());
-			cout << "before" << endl;
+			
 
 			for (int p = 0; p < alpha; p++) {
 				img_subset.erase(img_subset.end() - 1);
 				img_subset.erase(img_subset.begin());
 			}
+			for (int p = 0; p <= img_subset.size() - 1; p++) {
+				avg += img_subset[p];
+			}
+			float c = 1.0 / (9.0 - d);
+			avg = c * avg;
 			
-			
-			cout << "hiiii" << endl;
 			//midpoint = (img_subset[0] + img_subset[8]) / 2;
-			//alpha_trimmed_mean_image.at<double>(i, j) = midpoint;
+			alpha_trimmed_mean_image.at<double>(i, j) = avg;
 		}
 	}
 	cv::imwrite("C:/Users/rickr/Documents/Repos/5550_DIP/output/alpha_trimmed_mean_image.png", alpha_trimmed_mean_image);

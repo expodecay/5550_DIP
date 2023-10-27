@@ -160,7 +160,7 @@
       </property>
      </widget>
     </item>
-    <item row="3" column="0">
+    <item row="3" column="0" alignment="Qt::AlignLeft">
      <widget class="QPushButton" name="Alpha_Trimmed_Mean">
       <property name="text">
        <string>Alpha Trimmed Mean</string>

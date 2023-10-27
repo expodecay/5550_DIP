@@ -145,5 +145,5 @@ void MainWindow::MidpointQT()
 void MainWindow::AlphaTrimmedMeanQT()
 {
     AlphaTrimmedMean();
-    showPhoto("C:/Users/rickr/Documents/Repos/5550_DIP/output/alpha_trimmed_mean.png");
+    showPhoto("C:/Users/rickr/Documents/Repos/5550_DIP/output/alpha_trimmed_mean_image.png");
 }
